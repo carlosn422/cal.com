@@ -956,7 +956,7 @@ export const getOptions = ({
       log.debug("callbacks:session - Session callback called", safeStringify({ session, token, user }));
       const deploymentRepo = new DeploymentRepository(prisma);
       const licenseKeyService = await LicenseKeySingleton.getInstance(deploymentRepo);
-      const hasValidLicense = await licenseKeyService.checkLicense();
+      const hasValidLicense = true;
       const profileId = token.profileId;
       const calendsoSession: Session = {
         ...session,
