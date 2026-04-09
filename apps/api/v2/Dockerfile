@@ -5,6 +5,7 @@ ARG DATABASE_URL
 
 WORKDIR /calcom
 
+RUN apk add --no-cache build-base python3 make
 RUN set -eux;
 RUN ln -s /usr/lib/libssl.so.3 /lib/libssl.so.3
 
