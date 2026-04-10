@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  calcom:
+    image: ${{ secrets.DO_REGISTRY_URL }}/${{ secrets.DO_REGISTRY_NAME }}/calcom:${DOCKER_IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY}
+      - NEXT_PUBLIC_WEBAPP_URL=${NEXT_PUBLIC_WEBAPP_URL}
+      - WEBPACK_WATCHING=false # required to disable webpack watch in prod
+    depends_on:
+      - redis
+  
+  calcom-api:
+    image: ${{ secrets.DO_REGISTRY_URL }}/${{ secrets.DO_REGISTRY_NAME }}/calcom-api:${DOCKER_IMAGE_TAG:-latest}
+    build:
+      context: apps/api/v2
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - API_KEY_PREFIX=${API_KEY_PREFIX}
+      - CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY}
+      - CALCOM_LICENSE_KEY=${CALCOM_LICENSE_KEY}
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"

@@ -188,8 +188,8 @@ export const ORG_MINIMUM_PUBLISHED_TEAMS_SELF_SERVE_HELPER_DIALOGUE = 1;
 
 export const CALCOM_PRIVATE_API_ROUTE = process.env.CALCOM_PRIVATE_API_ROUTE || "https://goblin.cal.com";
 export const WEBSITE_PRIVACY_POLICY_URL =
-  process.env.NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL || "https://cal.com/privacy";
-export const WEBSITE_TERMS_URL = process.env.NEXT_PUBLIC_WEBSITE_TERMS_URL || "https://cal.com/terms";
+  process.env.NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL || `${WEBAPP_URL}/privacy`;
+export const WEBSITE_TERMS_URL = process.env.NEXT_PUBLIC_WEBSITE_TERMS_URL || `${WEBAPP_URL}/terms`;
 export const LINGO_DOT_DEV_API_KEY = process.env.LINGO_DOT_DEV_API_KEY;
 
 /**
@@ -198,21 +198,13 @@ export const LINGO_DOT_DEV_API_KEY = process.env.LINGO_DOT_DEV_API_KEY;
  */
 export const ROLLING_WINDOW_PERIOD_MAX_DAYS_TO_CHECK = 30 + 31;
 
-export const TRANSCRIPTION_STARTED_ICON = IS_PRODUCTION
-  ? `${WEBAPP_URL}/sparkles-red.svg`
-  : `https://app.cal.com/sparkles-red.svg`;
+export const TRANSCRIPTION_STARTED_ICON = `${WEBAPP_URL}/sparkles-red.svg`;
 
-export const TRANSCRIPTION_STOPPED_ICON = IS_PRODUCTION
-  ? `${WEBAPP_URL}/sparkles.svg`
-  : `https://app.cal.com/sparkles.svg`;
+export const TRANSCRIPTION_STOPPED_ICON = `${WEBAPP_URL}/sparkles.svg`;
 
-export const RECORDING_DEFAULT_ICON = IS_PRODUCTION
-  ? `${WEBAPP_URL}/start-recording.svg`
-  : `https://app.cal.com/start-recording.svg`;
+export const RECORDING_DEFAULT_ICON = `${WEBAPP_URL}/start-recording.svg`;
 
-export const RECORDING_IN_PROGRESS_ICON = IS_PRODUCTION
-  ? `${WEBAPP_URL}/stop-recording.svg`
-  : `https://app.cal.com/stop-recording.svg`;
+export const RECORDING_IN_PROGRESS_ICON = `${WEBAPP_URL}/stop-recording.svg`;
 
 export const SCOPE_USERINFO_PROFILE = "https://www.googleapis.com/auth/userinfo.profile";
 export const SCOPE_USERINFO_EMAIL = "https://www.googleapis.com/auth/userinfo.email";

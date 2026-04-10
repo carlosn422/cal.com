@@ -35,7 +35,7 @@ services:
       - "${REDIS_PORT:-6379}:6379"
 
   calcom:
-    image: calcom.docker.scarf.sh/calcom/cal.com
+    image: ${{ secrets.DO_REGISTRY_URL }}/${{ secrets.DO_REGISTRY_NAME }}/calcom:${DOCKER_IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: Dockerfile
@@ -64,10 +64,10 @@ services:
         yarn start
 
   calcom-api:
-    container_name: calcom-api
+    image: ${{ secrets.DO_REGISTRY_URL }}/${{ secrets.DO_REGISTRY_NAME }}/calcom-api:${DOCKER_IMAGE_TAG:-latest}
     build:
-      context: .
-      dockerfile: apps/api/v2/Dockerfile
+      context: apps/api/v2
+      dockerfile: Dockerfile
       args:
         DATABASE_URL: ${DATABASE_URL}
         DATABASE_DIRECT_URL: ${DATABASE_URL}
@@ -117,7 +117,7 @@ services:
 
   # Optional use of Prisma Studio. In production, comment out or remove the section below to prevent unwanted access to your database.
   studio:
-    image: calcom.docker.scarf.sh/calcom/cal.com
+    image: ghcr.io/${{ github.repository }}/calcom:${DOCKER_IMAGE_TAG:-latest}
     restart: always
     networks:
       - stack
