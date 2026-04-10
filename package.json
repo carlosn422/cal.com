@@ -1,7 +1,7 @@
 {
   "name": "calcom-monorepo",
   "version": "0.0.0",
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@4.12.0",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -100,6 +100,7 @@
     "c8": "7.13.0",
     "checkly": "latest",
     "dotenv-checker": "1.1.5",
+    "firebase-admin": "^11.11.1",
     "husky": "9.1.7",
     "i18n-unused": "0.13.0",
     "jest-diff": "29.7.0",
@@ -177,7 +178,6 @@
     "schema": "packages/prisma/schema.prisma",
     "seed": "ts-node --transpile-only ./packages/prisma/seed.ts"
   },
-  "packageManager": "yarn@4.12.0",
   "syncpack": {
     "filter": "^(?!@calcom).*",
     "semverRange": ""
