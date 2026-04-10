@@ -59,6 +59,7 @@ services:
       - -c
       - |
         corepack enable &&
+        yarn install &&
         yarn prisma migrate deploy --schema /calcom/packages/prisma/schema.prisma &&
         yarn start
 
@@ -110,6 +111,7 @@ services:
       - LOGGER_BRIDGE_LOG_LEVEL=${LOGGER_BRIDGE_LOG_LEVEL}
       - DOCS_URL=${DOCS_URL}
       - GET_LICENSE_KEY_URL=${GET_LICENSE_KEY_URL}
+      - CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY}
     depends_on:
       - redis
 

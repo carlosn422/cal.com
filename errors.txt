@@ -1,0 +1,16 @@
+2026-04-09 21:27:13.420 | @calcom/web:start: ⨯ Error [PrismaClientKnownRequestError]: 
+2026-04-09 21:27:13.420 | @calcom/web:start: Invalid `prisma.user.findFirst()` invocation:
+2026-04-09 21:27:13.420 | @calcom/web:start: 
+2026-04-09 21:27:13.420 | @calcom/web:start: 
+2026-04-09 21:27:13.420 | @calcom/web:start: Error opening a TLS connection: self-signed certificate in certificate chain
+2026-04-09 21:27:13.420 | @calcom/web:start:     at async n (.next/server/chunks/ssr/[root-of-the-server]__43a30556._.js:1:23939)
+2026-04-09 21:27:13.420 | @calcom/web:start:     at async (.next/server/chunks/ssr/[root-of-the-server]__0bb36f05._.js:1:12922)
+2026-04-09 21:27:13.420 | @calcom/web:start:     at async n (.next/server/chunks/ssr/[root-of-the-server]__43a30556._.js:1:25745) {
+2026-04-09 21:27:13.420 | @calcom/web:start:   code: 'P1011',
+2026-04-09 21:27:13.420 | @calcom/web:start:   meta: [Object],
+2026-04-09 21:27:13.420 | @calcom/web:start:   clientVersion: '6.16.1',
+2026-04-09 21:27:13.420 | @calcom/web:start:   digest: '3494542557'
+2026-04-09 21:27:13.420 | @calcom/web:start: }
+2026-04-09 21:27:13.563 | @calcom/web:start: {"0":"orgDomains.ts","1":"Org support not enabled for hostname without \".\"","2":{"hostname":"localhost:3000"},"_meta":{"runtime":"Nodejs","runtimeVersion":"v20.20.2","hostname":"636179dbcd4c","name":"[undefined]","parentNames":"[undefined]","date":"2026-04-10T02:27:13.563Z","logLevelId":4,"logLevelName":"WARN","path":{"fullFilePath":"/calcom/apps/web/.next/server/chunks/ssr/_38e6d1ec._.js:1:657","fileName":"_38e6d1ec._.js","fileNameWithLine":"_38e6d1ec._.js:1","fileColumn":"657","fileLine":"1","filePath":"/.next/server/chunks/ssr/_38e6d1ec._.js","filePathWithLine":"/.next/server/chunks/ssr/_38e6d1ec._.js:1","method":"[undefined]"}}}
+2026-04-09 21:27:13.704 | @calcom/web:start: {"0":"orgDomains.ts","1":"Org support not enabled for hostname without \".\"","2":{"hostname":"localhost:3000"},"_meta":{"runtime":"Nodejs","runtimeVersion":"v20.20.2","hostname":"636179dbcd4c","name":"[undefined]","parentNames":"[undefined]","date":"2026-04-10T02:27:13.704Z","logLevelId":4,"logLevelName":"WARN","path":{"fullFilePath":"/calcom/apps/web/.next/server/chunks/_ffba71cc._.js:1:10051","fileName":"_ffba71cc._.js","fileNameWithLine":"_ffba71cc._.js:1","fileColumn":"10051","fileLine":"1","filePath":"/.next/server/chunks/_ffba71cc._.js","filePathWithLine":"/.next/server/chunks/_ffba71cc._.js:1","method":"[undefined]"}}}
+2026-04-09 21:27:13.717 | @calcom/web:start: {"0":"orgDomains.ts","1":"Org support not enabled for hostname without \".\"","2":{"hostname":"localhost:3000"},"_meta":{"runtime":"Nodejs","runtimeVersion":"v20.20.2","hostname":"636179dbcd4c","name":"[undefined]","parentNames":"[undefined]","date":"2026-04-10T02:27:13.714Z","logLevelId":4,"logLevelName":"WARN","path":{"fullFilePath":"/calcom/apps/web/.next/server/chunks/_ffba71cc._.js:1:10051","fileName":"_ffba71cc._.js","fileNameWithLine":"_ffba71cc._.js:1","fileColumn":"10051","fileLine":"1","filePath":"/.next/server/chunks/_ffba71cc._.js","filePathWithLine":"/.next/server/chunks/_ffba71cc._.js:1","method":"[undefined]"}}}

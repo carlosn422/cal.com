@@ -19,29 +19,6 @@ export class DeploymentsService {
   ) {}
 
   async checkLicense() {
-    if (this.configService.get("e2e")) {
-      return true;
-    }
-    let licenseKey = this.configService.get("api.licenseKey");
-
-    if (!licenseKey) {
-      /** We try to check on DB only if env is undefined */
-      const deployment = await this.deploymentsRepository.getDeployment();
-      licenseKey = deployment?.licenseKey ?? undefined;
-    }
-
-    if (!licenseKey) {
-      return false;
-    }
-    const licenseKeyUrl = this.configService.get("api.licenseKeyUrl") + `/${licenseKey}`;
-    const cachedData = await this.redisService.redis.get(getLicenseCacheKey(licenseKey));
-    if (cachedData) {
-      return (JSON.parse(cachedData) as LicenseCheckResponse)?.status;
-    }
-    const response = await fetch(licenseKeyUrl, { mode: "cors" });
-    const data = (await response.json()) as LicenseCheckResponse;
-    const cacheKey = getLicenseCacheKey(licenseKey);
-    this.redisService.redis.set(cacheKey, JSON.stringify(data), "EX", CACHING_TIME);
-    return data.status;
+    return true;
   }
 }
