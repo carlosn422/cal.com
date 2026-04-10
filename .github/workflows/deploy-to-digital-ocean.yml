@@ -32,6 +32,10 @@ jobs:
           password: ${{ secrets.DO_REGISTRY_TOKEN }}
 
       - name: Build and push Docker images
+        env:
+          DO_REGISTRY_URL: ${{ secrets.DO_REGISTRY_URL }}
+          DO_REGISTRY_NAME: ${{ secrets.DO_REGISTRY_NAME }}
+          DOCKER_IMAGE_TAG: ${{ github.sha }}
         run: |
           docker compose -f docker-compose.yml build
           docker compose -f docker-compose.yml push
@@ -44,6 +48,8 @@ jobs:
           password: ${{ secrets.DROPLET_PASSWORD }}
           script: |
             cd /path/to/your/app
+            export DO_REGISTRY_URL=${{ secrets.DO_REGISTRY_URL }}
+            export DO_REGISTRY_NAME=${{ secrets.DO_REGISTRY_NAME }}
             export DOCKER_IMAGE_TAG=${{ github.sha }}
             docker compose -f docker-compose.prod.yml pull
             docker compose -f docker-compose.prod.yml up -d --force-recreate
