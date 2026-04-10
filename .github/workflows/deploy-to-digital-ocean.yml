@@ -32,7 +32,7 @@ jobs:
           docker-compose -f docker-compose.yml push
 
       - name: Deploy to DigitalOcean
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USERNAME }}
