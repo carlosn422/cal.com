@@ -77,6 +77,9 @@ packages/prisma/enums
 dist
 packages/app-store/types
 
+# Ignore generated files that cause yarn.lock drift in CI
+**/*.generated.ts
+
 # Linting
 lint-results
 
