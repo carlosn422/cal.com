@@ -51,6 +51,7 @@ jobs:
           DATABASE_URL=${{ secrets.DATABASE_URL }}
           DATABASE_DIRECT_URL=${{ secrets.DATABASE_URL }}
           NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
+          NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL || secrets.NEXT_PUBLIC_WEBAPP_URL || 'http://localhost:3000' }}
           CALENDSO_ENCRYPTION_KEY=${{ secrets.CALENDSO_ENCRYPTION_KEY }}
           API_KEY_PREFIX=${{ secrets.API_KEY_PREFIX }}
           CALCOM_LICENSE_KEY=${{ secrets.CALCOM_LICENSE_KEY }}
@@ -105,7 +106,7 @@ jobs:
           echo "API: ${API_IMAGE_NAME}"
 
           # Build and push the main web application image
-          docker build -t ${WEB_IMAGE_NAME} -f Dockerfile .
+          docker build --build-arg NEXTAUTH_URL="${{ secrets.NEXTAUTH_URL }}" -t ${WEB_IMAGE_NAME} -f Dockerfile .
           docker push ${WEB_IMAGE_NAME}
 
           # Build and push the API image
