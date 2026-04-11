@@ -5,7 +5,8 @@ import { addTimezonesToDropdown, filterBySearchText, handleOptionLabel } from "@
 import classNames from "@calcom/ui/classNames";
 import { getReactSelectProps, inputStyles } from "@calcom/ui/components/form";
 import { useCallback, useMemo, useState } from "react";
-import type { ITimezone, ITimezoneOption, Props as SelectProps, CSSObjectWithLabel } from "react-timezone-select";
+import type { ITimezone, ITimezoneOption, Props as SelectProps } from "react-timezone-select";
+import type { CSSObjectWithLabel, ControlProps, IndicatorsContainerProps, InputProps, MenuListProps, MenuProps, MultiValueProps, OptionProps, PlaceholderProps, SingleValueProps, ValueContainerProps } from "react-select";
 import BaseSelect from "react-timezone-select";
 
 export type TimezoneSelectComponentProps = SelectProps & {
@@ -105,11 +106,11 @@ export function TimezoneSelectComponent({
         control: (base: CSSObjectWithLabel) => ({
           ...base,
           minHeight: size === "sm" ? "28px" : "36px",
-          height: grow ? "h-auto " : size === "sm" ? "28px" : "36px",
+          height: grow ? "auto" : size === "sm" ? "28px" : "36px",
         }),
         menuList: (base: CSSObjectWithLabel) => ({
           ...base,
-          height: grow ? "h-auto " : size === "sm" ? "200px" : "180px",
+          height: grow ? "auto" : size === "sm" ? "200px" : "180px",
         }),
       }}
       onInputChange={handleInputChange}
@@ -119,12 +120,12 @@ export function TimezoneSelectComponent({
       getOptionLabel={getLabel}
       classNames={{
         ...timezoneClassNames,
-        input: (state) =>
+        input: (state: InputProps) =>
           classNames(
             "text-emphasis h-6 md:max-w-[145px] max-w-[250px]",
             timezoneClassNames?.input && timezoneClassNames.input(state)
           ),
-        option: (state) =>
+        option: (state: OptionProps<ITimezoneOption>) =>
           classNames(
             "bg-default py-2.5 px-3 rounded-md text-default ",
             state.isFocused && "bg-subtle",
@@ -132,9 +133,9 @@ export function TimezoneSelectComponent({
             state.isSelected && "bg-emphasis text-default",
             timezoneClassNames?.option && timezoneClassNames.option(state)
           ),
-        placeholder: (state) => classNames("text-muted", state.isFocused && "hidden"),
+        placeholder: (state: PlaceholderProps<ITimezoneOption>) => classNames("text-muted", state.isFocused && "hidden"),
         dropdownIndicator: () => "text-default",
-        control: (state) =>
+        control: (state: ControlProps<ITimezoneOption>) =>
           classNames(
             inputStyles({ size }),
             state.isMulti
@@ -148,40 +149,40 @@ export function TimezoneSelectComponent({
             "rounded-[10px]",
             timezoneClassNames?.control && timezoneClassNames.control(state)
           ),
-        singleValue: (state) =>
+        singleValue: (state: SingleValueProps<ITimezoneOption>) =>
           classNames(
             "text-emphasis placeholder:text-muted",
             timezoneClassNames?.singleValue && timezoneClassNames.singleValue(state)
           ),
-        valueContainer: (state) =>
+        valueContainer: (state: ValueContainerProps<ITimezoneOption>) =>
           classNames(
             "text-emphasis placeholder:text-muted flex gap-1",
             timezoneClassNames?.valueContainer && timezoneClassNames.valueContainer(state)
           ),
-        multiValue: (state) =>
+        multiValue: (state: MultiValueProps<ITimezoneOption>) =>
           classNames(
             "bg-subtle text-default rounded-md py-1.5 px-2 flex items-center text-sm leading-none",
             timezoneClassNames?.multiValue && timezoneClassNames.multiValue(state)
           ),
-        menu: (state) =>
+        menu: (state: MenuProps<ITimezoneOption>) =>
           classNames(
             "rounded-md bg-default text-sm leading-4 text-default mt-1 p-1 border border-subtle",
-            state.selectProps.menuIsOpen && "shadow-dropdown", // Add box-shadow when menu is open
+            state.selectProps.menuIsOpen && "shadow-dropdown",
             timezoneClassNames?.menu && timezoneClassNames.menu(state)
           ),
         groupHeading: () => "leading-none text-xs uppercase text-default pl-2.5 pt-4 pb-2",
-        menuList: (state) =>
+        menuList: (state: MenuListProps<ITimezoneOption>) =>
           classNames(
             "scroll-bar scrollbar-track-w-20 rounded-md flex flex-col space-y-1",
             timezoneClassNames?.menuList && timezoneClassNames.menuList(state)
           ),
-        indicatorsContainer: (state) =>
+        indicatorsContainer: (state: IndicatorsContainerProps<ITimezoneOption>) =>
           classNames(
             state.selectProps.menuIsOpen
               ? state.isMulti
                 ? "[&>*:last-child]:rotate-180 [&>*:last-child]:transition-transform"
                 : "rotate-180 transition-transform"
-              : "text-default", // Woo it adds another SVG here on multi for some reason
+              : "text-default",
             timezoneClassNames?.indicatorsContainer && timezoneClassNames.indicatorsContainer(state)
           ),
         multiValueRemove: () => "text-default py-auto ml-2",
