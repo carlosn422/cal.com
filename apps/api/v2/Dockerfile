@@ -38,10 +38,10 @@ FROM node:20-alpine
 WORKDIR /calcom
 
 # Copy the built application from the build stage
-COPY --from=build /calcom/dist /calcom/dist
+COPY --from=build /calcom/apps/api/v2/dist /calcom/apps/api/v2/dist
 COPY --from=build /calcom/node_modules /calcom/node_modules
 COPY --from=build /calcom/package.json /calcom/
 
 # Expose the port and start the application
 EXPOSE 80
-CMD ["node", "dist/apps/api/v2/src/main.js"]
+CMD ["node", "apps/api/v2/dist/apps/api/v2/src/main.js"]
