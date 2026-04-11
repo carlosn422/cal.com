@@ -2714,6 +2714,7 @@ __metadata:
     react-awesome-query-builder: "npm:5.1.2"
     react-select: "npm:5.8.0"
     react-sticky-box: "npm:2.0.4"
+    react-timezone-select: "npm:^1.4.3"
     recharts: "npm:3.0.2"
     stripe: "npm:9.16.0"
     stripe-event-types: "npm:3.1.0"
@@ -35317,6 +35318,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-timezone-select@npm:^1.4.3":
+  version: 1.5.6
+  resolution: "react-timezone-select@npm:1.5.6"
+  dependencies:
+    react-select: "npm:^5.7.0"
+    spacetime: "npm:^7.4.1"
+    timezone-soft: "npm:^1.4.1"
+  peerDependencies:
+    react: ^18 || ^17.0.1 || ^16
+    react-dom: ^18 || ^17.0.1 || ^16
+  checksum: 10/dd92378a8e3d4d71b66162619eb122a10bbe63cb6bade1fbc7cfb850c45de12c008366a6ee552b9712d575f1fee4860e117c86421cbc2cb29e4fd0c46853e089
+  languageName: node
+  linkType: hard
+
 "react-transition-group@npm:^4.3.0":
   version: 4.4.5
   resolution: "react-transition-group@npm:4.4.5"
@@ -37383,7 +37398,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"spacetime@npm:^7.1.4":
+"spacetime@npm:^7.1.4, spacetime@npm:^7.4.1":
   version: 7.12.0
   resolution: "spacetime@npm:7.12.0"
   checksum: 10/cbf84d581aaf3ca5363df69acd699d250a5dc6e667e9ee4d358c68490b85ba6d129f506ee8cbe8b9680642203e7ad9a208d350dc8d1a8299069d9fa667139f3f
@@ -38718,7 +38733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"timezone-soft@npm:^1.3.1":
+"timezone-soft@npm:^1.3.1, timezone-soft@npm:^1.4.1":
   version: 1.5.2
   resolution: "timezone-soft@npm:1.5.2"
   checksum: 10/0bbd4c8da5d06ca9d56f5196e97c0b68dd06d3a756b963be337c0f9997d0ee092c52c3dd7f7881a8f46444d926fa4e64c636c0f01873b0185e407941a81a4bbe
