@@ -119,7 +119,7 @@ services:
 
   # Optional use of Prisma Studio. In production, comment out or remove the section below to prevent unwanted access to your database.
   studio:
-    image: calcom.docker.scarf.sh/calcom/cal.com
+    image: ${GH_REGISTRY_URL}/${GH_REPOSITORY}/calcom:${DOCKER_IMAGE_TAG:-latest}
     restart: always
     networks:
       - stack

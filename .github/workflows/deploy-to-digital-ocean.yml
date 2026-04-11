@@ -35,7 +35,37 @@ jobs:
         env:
           DO_REGISTRY_URL: ${{ secrets.DO_REGISTRY_URL }}
           DO_REGISTRY_NAME: ${{ secrets.DO_REGISTRY_NAME }}
+          GH_REGISTRY_URL: ghcr.io
+          GH_REPOSITORY: ${{ github.repository }}
           DOCKER_IMAGE_TAG: ${{ github.sha }}
+          NEXT_PUBLIC_WEBAPP_URL: ${{ secrets.NEXT_PUBLIC_WEBAPP_URL || 'http://localhost:3000' }}
+          NEXT_PUBLIC_API_V2_URL: ${{ secrets.NEXT_PUBLIC_API_V2_URL || 'http://localhost/api/v2' }}
+          NEXT_PUBLIC_LICENSE_CONSENT: ${{ secrets.NEXT_PUBLIC_LICENSE_CONSENT || 'false' }}
+          NEXT_PUBLIC_WEBSITE_TERMS_URL: ${{ secrets.NEXT_PUBLIC_WEBSITE_TERMS_URL || 'https://cal.com/terms' }}
+          NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL: ${{ secrets.NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL || 'https://cal.com/privacy' }}
+          NEXT_PUBLIC_SINGLE_ORG_SLUG: ${{ secrets.NEXT_PUBLIC_SINGLE_ORG_SLUG || '' }}
+          ORGANIZATIONS_ENABLED: ${{ secrets.ORGANIZATIONS_ENABLED || 'false' }}
+          NODE_ENV: ${{ secrets.NODE_ENV || 'production' }}
+          API_URL: ${{ secrets.API_URL || 'http://localhost/api' }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          LOG_LEVEL: ${{ secrets.LOG_LEVEL || 'info' }}
+          WEB_APP_URL: ${{ secrets.WEB_APP_URL || 'http://localhost:3000' }}
+          NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_VAPID_PUBLIC_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          STRIPE_PRICE_ID_STARTER: ${{ secrets.STRIPE_PRICE_ID_STARTER }}
+          STRIPE_PRICE_ID_STARTER_OVERAGE: ${{ secrets.STRIPE_PRICE_ID_STARTER_OVERAGE }}
+          STRIPE_PRICE_ID_ESSENTIALS: ${{ secrets.STRIPE_PRICE_ID_ESSENTIALS }}
+          STRIPE_PRICE_ID_ESSENTIALS_OVERAGE: ${{ secrets.STRIPE_PRICE_ID_ESSENTIALS_OVERAGE }}
+          STRIPE_PRICE_ID_ENTERPRISE: ${{ secrets.STRIPE_PRICE_ID_ENTERPRISE }}
+          STRIPE_PRICE_ID_ENTERPRISE_OVERAGE: ${{ secrets.STRIPE_PRICE_ID_ENTERPRISE_OVERAGE }}
+          STRIPE_TEAM_MONTHLY_PRICE_ID: ${{ secrets.STRIPE_TEAM_MONTHLY_PRICE_ID }}
+          AXIOM_DATASET: ${{ secrets.AXIOM_DATASET }}
+          AXIOM_TOKEN: ${{ secrets.AXIOM_TOKEN }}
+          LOGGER_BRIDGE_LOG_LEVEL: ${{ secrets.LOGGER_BRIDGE_LOG_LEVEL || 'info' }}
+          DOCS_URL: ${{ secrets.DOCS_URL || 'https://cal.com/docs' }}
+          GET_LICENSE_KEY_URL: ${{ secrets.GET_LICENSE_KEY_URL }}
         run: |
           docker compose -f docker-compose.yml build
           docker compose -f docker-compose.yml push
