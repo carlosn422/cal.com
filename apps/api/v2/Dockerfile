@@ -29,7 +29,7 @@ ENV DATABASE_DIRECT_URL=${DATABASE_DIRECT_URL}
 ENV DATABASE_URL=${DATABASE_URL}
 ENV USE_POOL="true"
 
-# Build the specific api/v2 workspace
+# Build the specific api/v2 workspace and its dependencies
 RUN yarn workspace @calcom/api-v2 run build:docker
 RUN yarn workspace @calcom/api-v2 run build
 
