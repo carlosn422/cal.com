@@ -35,7 +35,7 @@ services:
       - "${REDIS_PORT:-6379}:6379"
 
   calcom:
-    image: calcom.docker.scarf.sh/calcom/cal.com
+    image: ${GH_REGISTRY_URL}/${GH_REPOSITORY}/calcom:${DOCKER_IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: Dockerfile

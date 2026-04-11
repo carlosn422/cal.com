@@ -138,7 +138,7 @@ services:
 
   # Optional use of Prisma Studio. In production, comment out or remove the section below to prevent unwanted access to your database.
   studio:
-    image: ghcr.io/${{ github.repository }}/calcom:${DOCKER_IMAGE_TAG:-latest}
+    image: ${GH_REGISTRY_URL}/${GH_REPOSITORY}/calcom:${DOCKER_IMAGE_TAG:-latest}
     restart: always
     networks:
       - stack
