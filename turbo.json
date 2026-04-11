@@ -320,6 +320,10 @@
       "outputLogs": "new-only",
       "outputs": ["public/app-store/**"]
     },
+    "post-install": {
+      "dependsOn": ["^post-install"],
+      "outputs": []
+    },
     "@calcom/prisma#build": {
       "cache": false,
       "dependsOn": ["post-install"]

@@ -10,8 +10,8 @@ import {
   APPS_WRITE,
   PROFILE_READ,
   PROFILE_WRITE,
+  type PLATFORM_PERMISSION,
 } from "@calcom/platform-constants";
-import type { PLATFORM_PERMISSION } from "@calcom/platform-types";
 
 export const hasPermission = (userPermissions: number, permission: PLATFORM_PERMISSION): boolean => {
   // use bitwise AND to check if user has the permission
