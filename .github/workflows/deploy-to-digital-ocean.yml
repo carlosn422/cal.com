@@ -88,7 +88,7 @@ jobs:
           EOF
 
           docker build -t ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom-api:${DOCKER_IMAGE_TAG:-latest} -f apps/api/v2/Dockerfile .
-          docker compose -f docker-compose.yml push
+          docker push ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom-api:${DOCKER_IMAGE_TAG:-latest}
 
       - name: Deploy to DigitalOcean
         uses: appleboy/ssh-action@v1.0.3
