@@ -1,0 +1,369 @@
+Run # Export variables for image tags to the shell environment
+  # Export variables for image tags to the shell environment
+  export DO_REGISTRY_URL=***
+  export DO_REGISTRY_NAME=***
+  export GH_REGISTRY_URL=ghcr.io
+  export GH_REPOSITORY=carlosn422/cal.com
+  export DOCKER_IMAGE_TAG=bde5a7491f5e899aa11770587c3bca7dd47a948a
+  
+  # Create a complete .env file for build-time arguments
+  cat << EOF > .env
+  # From GitHub Secrets
+  DATABASE_URL=***
+  DATABASE_DIRECT_URL=***
+  NEXTAUTH_SECRET=***
+  CALENDSO_ENCRYPTION_KEY=***
+  API_KEY_PREFIX=***
+  CALCOM_LICENSE_KEY=***
+  JWT_SECRET=
+  NEXT_PUBLIC_VAPID_PUBLIC_KEY=
+  VAPID_PRIVATE_KEY=
+  STRIPE_API_KEY=
+  STRIPE_WEBHOOK_SECRET=
+  STRIPE_PRICE_ID_STARTER=
+  STRIPE_PRICE_ID_STARTER_OVERAGE=
+  STRIPE_PRICE_ID_ESSENTIALS=
+  STRIPE_PRICE_ID_ESSENTIALS_OVERAGE=
+  STRIPE_PRICE_ID_ENTERPRISE=
+  STRIPE_PRICE_ID_ENTERPRISE_OVERAGE=
+  STRIPE_TEAM_MONTHLY_PRICE_ID=
+  AXIOM_DATASET=
+  AXIOM_TOKEN=
+  GET_LICENSE_KEY_URL=
+  
+  # With Defaults
+  NEXT_PUBLIC_WEBAPP_URL=***
+  NEXT_PUBLIC_API_V2_URL=http://localhost/api/v2
+  NEXT_PUBLIC_LICENSE_CONSENT=false
+  NEXT_PUBLIC_WEBSITE_TERMS_URL=https://cal.com/terms
+  NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL=https://cal.com/privacy
+  NEXT_PUBLIC_SINGLE_ORG_SLUG=***
+  ORGANIZATIONS_ENABLED=false
+  NODE_ENV=production
+  API_URL=http://localhost/api
+  LOG_LEVEL=info
+  WEB_APP_URL=http://localhost:3000
+  LOGGER_BRIDGE_LOG_LEVEL=info
+  DOCS_URL=https://cal.com/docs
+  REDIS_URL=redis://redis:6379
+  EOF
+  
+  docker build -t ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/***-api:${DOCKER_IMAGE_TAG:-latest} -f apps/api/v2/Dockerfile .
+  docker compose -f docker-compose.yml push
+  shell: /usr/bin/bash -e {0}
+  env:
+    FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.37kB done
+#1 DONE 0.0s
+
+#2 [auth] library/node:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 357B done
+#4 DONE 0.0s
+
+#5 [build  1/12] FROM docker.io/library/node:20-alpine@sha256:f598378b5240225e6beab68fa9f356db1fb8efe55173e6d4d8153113bb8f333c
+#5 resolve docker.io/library/node:20-alpine@sha256:f598378b5240225e6beab68fa9f356db1fb8efe55173e6d4d8153113bb8f333c done
+#5 sha256:ccfb9f0dc7ac7e788325fd0b8eb985ed6a16db60914c61245ddee06acb16e029 6.52kB / 6.52kB done
+#5 sha256:d7f6aca05b78f475975eeac3898b7ef0a618937174c469650e05e81cbf8c5f46 7.34MB / 43.23MB 0.1s
+#5 sha256:62e0e1181d88da8ed0e2fda221e9446ad0f09a004a375193ad7a38e31ec4eab4 0B / 1.26MB 0.1s
+#5 sha256:c7734204880fafbd6297ce1844e07c137d82ee814ac8b5fa6ac1a3659101d503 0B / 446B 0.1s
+#5 sha256:f598378b5240225e6beab68fa9f356db1fb8efe55173e6d4d8153113bb8f333c 7.67kB / 7.67kB done
+#5 sha256:42d1d5b07c84257b55d409f4e6e3be3b55d42867afce975a5648a3f231bf7e81 1.72kB / 1.72kB done
+#5 sha256:d7f6aca05b78f475975eeac3898b7ef0a618937174c469650e05e81cbf8c5f46 28.31MB / 43.23MB 0.2s
+#5 sha256:62e0e1181d88da8ed0e2fda221e9446ad0f09a004a375193ad7a38e31ec4eab4 1.26MB / 1.26MB 0.1s done
+#5 sha256:c7734204880fafbd6297ce1844e07c137d82ee814ac8b5fa6ac1a3659101d503 446B / 446B 0.1s done
+#5 sha256:d7f6aca05b78f475975eeac3898b7ef0a618937174c469650e05e81cbf8c5f46 38.80MB / 43.23MB 0.3s
+#5 extracting sha256:d7f6aca05b78f475975eeac3898b7ef0a618937174c469650e05e81cbf8c5f46
+#5 sha256:d7f6aca05b78f475975eeac3898b7ef0a618937174c469650e05e81cbf8c5f46 43.23MB / 43.23MB 0.3s done
+#5 extracting sha256:d7f6aca05b78f475975eeac3898b7ef0a618937174c469650e05e81cbf8c5f46 2.2s done
+#5 extracting sha256:62e0e1181d88da8ed0e2fda221e9446ad0f09a004a375193ad7a38e31ec4eab4
+#5 extracting sha256:62e0e1181d88da8ed0e2fda221e9446ad0f09a004a375193ad7a38e31ec4eab4 0.1s done
+#5 ...
+
+#6 [internal] load build context
+#6 transferring context: 943.70MB 5.1s done
+#6 DONE 5.2s
+
+#5 [build  1/12] FROM docker.io/library/node:20-alpine@sha256:f598378b5240225e6beab68fa9f356db1fb8efe55173e6d4d8153113bb8f333c
+#5 extracting sha256:c7734204880fafbd6297ce1844e07c137d82ee814ac8b5fa6ac1a3659101d503
+#5 extracting sha256:c7734204880fafbd6297ce1844e07c137d82ee814ac8b5fa6ac1a3659101d503 done
+#5 DONE 5.3s
+
+#7 [build  2/12] WORKDIR /***
+#7 DONE 0.0s
+
+#8 [build  3/12] RUN apk add --no-cache build-base python3 make
+#8 0.496 ( 1/35) Upgrading musl (1.2.5-r21 -> 1.2.5-r23)
+#8 0.504 ( 2/35) Installing jansson (2.14.1-r0)
+#8 0.508 ( 3/35) Installing zstd-libs (1.5.7-r2)
+#8 0.515 ( 4/35) Installing binutils (2.45.1-r0)
+#8 0.578 ( 5/35) Installing libmagic (5.46-r2)
+#8 0.599 ( 6/35) Installing file (5.46-r2)
+#8 0.602 ( 7/35) Installing libgomp (15.2.0-r2)
+#8 0.606 ( 8/35) Installing libatomic (15.2.0-r2)
+#8 0.609 ( 9/35) Installing gmp (6.3.0-r4)
+#8 0.614 (10/35) Installing isl26 (0.26-r1)
+#8 0.628 (11/35) Installing mpfr4 (4.2.2-r0)
+#8 0.635 (12/35) Installing mpc1 (1.3.1-r1)
+#8 0.638 (13/35) Installing gcc (15.2.0-r2)
+#8 1.494 (14/35) Installing libstdc++-dev (15.2.0-r2)
+#8 1.639 (15/35) Installing musl-dev (1.2.5-r23)
+#8 1.696 (16/35) Installing g++ (15.2.0-r2)
+#8 1.925 (17/35) Installing make (4.4.1-r3)
+#8 1.929 (18/35) Installing fortify-headers (1.1-r5)
+#8 1.932 (19/35) Installing patch (2.8-r0)
+#8 1.938 (20/35) Installing build-base (0.5-r3)
+#8 1.938 (21/35) Installing libbz2 (1.0.8-r6)
+#8 1.941 (22/35) Installing libexpat (2.7.5-r0)
+#8 1.944 (23/35) Installing libffi (3.5.2-r0)
+#8 1.947 (24/35) Installing gdbm (1.26-r0)
+#8 1.950 (25/35) Installing xz-libs (5.8.2-r0)
+#8 1.954 (26/35) Installing mpdecimal (4.0.1-r0)
+#8 1.958 (27/35) Installing ncurses-terminfo-base (6.5_p20251123-r0)
+#8 1.965 (28/35) Installing libncursesw (6.5_p20251123-r0)
+#8 1.969 (29/35) Installing libpanelw (6.5_p20251123-r0)
+#8 1.972 (30/35) Installing readline (8.3.1-r0)
+#8 1.976 (31/35) Installing sqlite-libs (3.51.2-r0)
+#8 1.989 (32/35) Installing python3 (3.12.13-r0)
+#8 2.157 (33/35) Installing python3-pycache-pyc0 (3.12.13-r0)
+#8 2.268 (34/35) Installing pyc (3.12.13-r0)
+#8 2.268 (35/35) Installing python3-pyc (3.12.13-r0)
+#8 2.268 Executing busybox-1.37.0-r30.trigger
+#8 2.279 OK: 311.3 MiB in 52 packages
+#8 DONE 2.8s
+
+#9 [build  4/12] RUN set -eux;
+#9 DONE 0.1s
+
+#10 [build  5/12] RUN ln -s /usr/lib/libssl.so.3 /lib/libssl.so.3
+#10 DONE 0.1s
+
+#11 [build  6/12] COPY package.json yarn.lock .npmrc .yarnrc.yml ./
+#11 DONE 0.0s
+
+#12 [build  7/12] COPY .yarn ./.yarn
+#12 DONE 2.3s
+
+#13 [build  8/12] COPY packages /***/packages
+#13 DONE 1.2s
+
+#14 [build  9/12] RUN corepack enable
+#14 DONE 0.2s
+
+#15 [build 10/12] RUN yarn install --immutable --inline-builds
+#15 0.229 ! Corepack is about to download https://repo.yarnpkg.com/4.12.0/packages/yarnpkg-cli/bin/yarn.js
+#15 1.675 ➤ YN0000: · Yarn 4.12.0
+#15 1.694 ➤ YN0000: ┌ Resolution step
+#15 2.236 ➤ YN0085: │ - @angular-devkit/core@npm:17.1.2, @angular-devkit/schematics-cli@npm:17.1.2, @angular-devkit/schematics@npm:17.1.2, and 779 more.
+#15 2.389 ➤ YN0000: └ Completed in 0s 693ms
+#15 2.394 ➤ YN0000: ┌ Post-resolution validation
+#15 2.394 ➤ YN0060: │ @urql/core is listed by your project with version 5.1.1 (pec12f0), which doesn't satisfy what @urql/exchange-retry requests (^6.0.0).
+#15 2.394 ➤ YN0060: │ prisma is listed by your project with version 6.16.1 (pc18db8), which doesn't satisfy what prisma-kysely and other dependencies request (~6.15.0).
+#15 2.394 ➤ YN0060: │ react is listed by your project with version 18.2.0 (p732e66), which doesn't satisfy what ink-select-input and other dependencies request (^17.0.2).
+#15 2.394 ➤ YN0060: │ stripe is listed by your project with version 9.16.0 (p8d4837), which doesn't satisfy what stripe-event-types requests (>=10.0.0).
+#15 2.394 ➤ YN0060: │ stripe is listed by your project with version 9.16.0 (p9c6b52), which doesn't satisfy what stripe-event-types requests (>=10.0.0).
+#15 2.395 ➤ YN0060: │ stripe is listed by your project with version 9.16.0 (pbbec2e), which doesn't satisfy what stripe-event-types requests (>=10.0.0).
+#15 2.395 ➤ YN0060: │ typescript is listed by your project with version 5.9.3 (p2a21dc), which doesn't satisfy what class-variance-authority and other dependencies request (^4.5.5).
+#15 2.395 ➤ YN0060: │ typescript is listed by your project with version 5.9.3 (p519ddd), which doesn't satisfy what class-variance-authority requests (^4.5.5).
+#15 2.395 ➤ YN0060: │ typescript is listed by your project with version 5.9.3 (p585126), which doesn't satisfy what class-variance-authority and other dependencies request (^4.5.5).
+#15 2.395 ➤ YN0060: │ typescript is listed by your project with version 5.9.3 (pdd7a59), which doesn't satisfy what class-variance-authority requests (^4.5.5).
+#15 2.395 ➤ YN0060: │ typescript is listed by your project with version 5.9.3 (pf2c3c4), which doesn't satisfy what class-variance-authority and other dependencies request (^4.5.5).
+#15 2.395 ➤ YN0060: │ vite is listed by your project with version 6.4.1 (p71469c), which doesn't satisfy what vite-plugin-inspect and other dependencies request (^4.2.0 || ^5.0.0).
+#15 2.395 ➤ YN0060: │ vite is listed by your project with version 6.4.1 (pcc4d15), which doesn't satisfy what vite-plugin-inspect and other dependencies request (^4.2.0 || ^5.0.0).
+#15 2.395 ➤ YN0060: │ vite is listed by your project with version 6.4.1 (pded82e), which doesn't satisfy what vite-plugin-inspect and other dependencies request (^4.2.0 || ^5.0.0).
+#15 2.396 ➤ YN0002: │ @***/alby@workspace:packages/app-store/alby doesn't provide react (p804b61), requested by react-qr-code.
+#15 2.396 ➤ YN0002: │ @***/app-store-cli@workspace:packages/app-store-cli doesn't provide @types/node (p924244), requested by ts-node.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store [ef4ec] doesn't provide @tanstack/react-query (pdd5b0e), requested by @***/ui.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store [ef4ec] doesn't provide i18next (pacc0d0), requested by react-i18next.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store [ef4ec] doesn't provide next (p83cb9c), requested by @***/features.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store [ef4ec] doesn't provide react-is (p8751ad), requested by @***/features.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store doesn't provide @tanstack/react-query (pa17241), requested by @***/ui.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store doesn't provide i18next (pef15bb), requested by react-i18next.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store doesn't provide next (pe8f6c8), requested by @***/features.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store doesn't provide react (pddaf0b), requested by @***/features and other dependencies.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store doesn't provide react-dom (pff8bc5), requested by @***/features and other dependencies.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store doesn't provide react-is (p8e3294), requested by @***/features.
+#15 2.396 ➤ YN0002: │ @***/app-store@workspace:packages/app-store doesn't provide zod (p43b4ec), requested by @***/features.
+#15 2.396 ➤ YN0002: │ @***/applecalendar@workspace:packages/app-store/applecalendar doesn't provide react (pa774a8), requested by react-hook-form.
+#15 2.396 ➤ YN0002: │ @***/atoms@workspace:packages/platform/atoms doesn't provide react (p2187f6), requested by @radix-ui/react-dialog and other dependencies.
+#15 2.396 ➤ YN0002: │ @***/atoms@workspace:packages/platform/atoms doesn't provide react-dom (p7adb16), requested by @radix-ui/react-dialog and other dependencies.
+#15 2.396 ➤ YN0002: │ @***/caldavcalendar@workspace:packages/app-store/caldavcalendar doesn't provide @tanstack/react-query (p3da7df), requested by @***/ui.
+#15 2.396 ➤ YN0002: │ @***/caldavcalendar@workspace:packages/app-store/caldavcalendar doesn't provide react (p6c4883), requested by @***/ui.
+#15 2.396 ➤ YN0002: │ @***/caldavcalendar@workspace:packages/app-store/caldavcalendar doesn't provide react-dom (p30c42c), requested by @***/ui.
+#15 2.396 ➤ YN0002: │ @***/config@workspace:packages/config doesn't provide tailwindcss (pdaf96e), requested by @tailwindcss/typography and other dependencies.
+#15 2.396 ➤ YN0002: │ @***/dub@workspace:packages/app-store/dub doesn't provide zod (p8a0f98), requested by dub.
+#15 2.396 ➤ YN0002: │ @***/ee@workspace:packages/features/ee doesn't provide @tanstack/react-query (pbab9e0), requested by @***/ui.
+#15 2.396 ➤ YN0002: │ @***/ee@workspace:packages/features/ee doesn't provide react (p7e3d23), requested by @***/ui and other dependencies.
+#15 2.396 ➤ YN0002: │ @***/ee@workspace:packages/features/ee doesn't provide react-dom (p38fc57), requested by @***/ui and other dependencies.
+#15 2.396 ➤ YN0002: │ @***/ee@workspace:packages/features/ee doesn't provide react-hook-form (p446cc8), requested by @hookform/error-message and other dependencies.
+#15 2.396 ➤ YN0002: │ @***/exchange2013calendar@workspace:packages/app-store/exchange2013calendar doesn't provide @tanstack/react-query (pbec951), requested by @***/ui.
+#15 2.396 ➤ YN0002: │ @***/exchange2013calendar@workspace:packages/app-store/exchange2013calendar doesn't provide react (pdb6b52), requested by @***/ui.
+#15 2.397 ➤ YN0002: │ @***/exchange2013calendar@workspace:packages/app-store/exchange2013calendar doesn't provide react-dom (p3bdc31), requested by @***/ui.
+#15 2.397 ➤ YN0002: │ @***/exchange2016calendar@workspace:packages/app-store/exchange2016calendar doesn't provide @tanstack/react-query (pb5fdf6), requested by @***/ui.
+#15 2.397 ➤ YN0002: │ @***/exchange2016calendar@workspace:packages/app-store/exchange2016calendar doesn't provide react (pe5fd42), requested by @***/ui.
+#15 2.397 ➤ YN0002: │ @***/exchange2016calendar@workspace:packages/app-store/exchange2016calendar doesn't provide react-dom (p5e2baf), requested by @***/ui.
+#15 2.397 ➤ YN0002: │ @***/feature-auth@workspace:packages/features/auth doesn't provide @tanstack/react-query (pd7cc71), requested by @***/ui.
+#15 2.397 ➤ YN0002: │ @***/feature-auth@workspace:packages/features/auth doesn't provide next (pfe8544), requested by @***/trpc and other dependencies.
+#15 2.397 ➤ YN0002: │ @***/feature-auth@workspace:packages/features/auth doesn't provide react (p631333), requested by @***/trpc and other dependencies.
+#15 2.397 ➤ YN0002: │ @***/feature-auth@workspace:packages/features/auth doesn't provide react-dom (p59a257), requested by @***/trpc and other dependencies.
+#15 2.397 ➤ YN0002: │ @***/feature-auth@workspace:packages/features/auth doesn't provide zod (pa55aca), requested by dub.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @ant-design/icons (p2acd6a), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @emotion/react (p3cd057), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @emotion/styled (p8a1ccb), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @fortawesome/fontawesome-svg-core (p26d0ef), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @fortawesome/free-solid-svg-icons (pa7a53f), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @fortawesome/react-fontawesome (p1a3cbb), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @material-ui/core (pdcdb43), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @material-ui/icons (pd07942), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @material-ui/lab (pf27926), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @material-ui/pickers (p4601a6), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @mui/icons-material (p720a80), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @mui/lab (pdf82af), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @mui/material (pe5db54), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide @tanstack/react-query (pcb9765), requested by @***/ui.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide antd (pe81a5a), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide bootstrap (pe085e1), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide date-fns (p9792be), requested by date-fns-tz.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide material-ui-confirm (p829caf), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [7bb91] doesn't provide reactstrap (p94ea47), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @ant-design/icons (pa81d59), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @emotion/react (pe7b29d), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @emotion/styled (p5a9af8), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @fortawesome/fontawesome-svg-core (p226c86), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @fortawesome/free-solid-svg-icons (pf9fa18), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @fortawesome/react-fontawesome (p47a3ea), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @material-ui/core (p7c5e66), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @material-ui/icons (pebcd15), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @material-ui/lab (p63f945), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @material-ui/pickers (peeaf24), requested by react-awesome-query-builder.
+#15 2.397 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @mui/icons-material (pb66f48), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @mui/lab (peead00), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @mui/material (p0e44c2), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide @tanstack/react-query (pf06232), requested by @***/ui.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide antd (p91e355), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide bootstrap (p54ab03), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide date-fns (p320c07), requested by date-fns-tz.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide material-ui-confirm (pbb9a4a), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features [ef4ec] doesn't provide reactstrap (pa37fdd), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @ant-design/icons (p4179af), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @emotion/react (pa29310), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @emotion/styled (p3abcfd), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @fortawesome/fontawesome-svg-core (pcc1b60), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @fortawesome/free-solid-svg-icons (p7e8a92), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @fortawesome/react-fontawesome (p4734af), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @material-ui/core (p45522b), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @material-ui/icons (p80c693), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @material-ui/lab (pf6235c), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @material-ui/pickers (p38aa6a), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @mui/icons-material (p2ccce0), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @mui/lab (pf9817f), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @mui/material (p1d7b4d), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide @tanstack/react-query (p6b00d2), requested by @***/ui.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide antd (pce87c6), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide bootstrap (p43d9af), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide date-fns (p911e27), requested by date-fns-tz.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide material-ui-confirm (p3ba617), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide next (p5d633a), requested by @***/trpc.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide react (peb01fe), requested by @***/atoms and other dependencies.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide react-dom (pce1a28), requested by @***/atoms and other dependencies.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide react-is (p0de657), requested by recharts.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide reactstrap (pf9091b), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/features@workspace:packages/features doesn't provide zod (p6ed8a0), requested by @trigger.dev/sdk.
+#15 2.398 ➤ YN0002: │ @***/ics-feed@workspace:packages/app-store/ics-feedcalendar doesn't provide @tanstack/react-query (pf6a237), requested by @***/ui.
+#15 2.398 ➤ YN0002: │ @***/ics-feed@workspace:packages/app-store/ics-feedcalendar doesn't provide react (p8665f7), requested by @***/ui.
+#15 2.398 ➤ YN0002: │ @***/ics-feed@workspace:packages/app-store/ics-feedcalendar doesn't provide react-dom (p4245ae), requested by @***/ui.
+#15 2.398 ➤ YN0002: │ @***/platform-libraries@workspace:packages/platform/libraries doesn't provide next (pf9a80b), requested by @***/features.
+#15 2.398 ➤ YN0002: │ @***/platform-libraries@workspace:packages/platform/libraries doesn't provide react (p8ffd0b), requested by @***/features.
+#15 2.398 ➤ YN0002: │ @***/platform-libraries@workspace:packages/platform/libraries doesn't provide react-dom (p529ae9), requested by @***/features.
+#15 2.398 ➤ YN0002: │ @***/platform-libraries@workspace:packages/platform/libraries doesn't provide react-is (p9b679f), requested by @***/features.
+#15 2.398 ➤ YN0002: │ @***/platform-libraries@workspace:packages/platform/libraries doesn't provide zod (pc26ba8), requested by @***/features.
+#15 2.398 ➤ YN0002: │ @***/platform-types@workspace:packages/platform/types doesn't provide @nestjs/core (p335de5), requested by @nestjs/swagger.
+#15 2.398 ➤ YN0002: │ @***/platform-types@workspace:packages/platform/types doesn't provide reflect-metadata (p0d1687), requested by @nestjs/common and other dependencies.
+#15 2.398 ➤ YN0002: │ @***/platform-types@workspace:packages/platform/types doesn't provide rxjs (pc84203), requested by @nestjs/common.
+#15 2.398 ➤ YN0002: │ @***/platform-utils@workspace:packages/platform/utils doesn't provide typescript (p51c50d), requested by ts-jest.
+#15 2.398 ➤ YN0002: │ @***/prisma@workspace:packages/prisma doesn't provide @types/node (p5cd041), requested by ts-node.
+#15 2.398 ➤ YN0002: │ @***/prisma@workspace:packages/prisma doesn't provide typescript (p26b5bb), requested by @prisma/client and other dependencies.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @ant-design/icons (pef2ab2), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @emotion/react (pe4a495), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @emotion/styled (p719252), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @fortawesome/fontawesome-svg-core (pca7e3b), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @fortawesome/free-solid-svg-icons (p8af7f7), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @fortawesome/react-fontawesome (p9e3c29), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @material-ui/core (pacafd1), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @material-ui/icons (pd0316a), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @material-ui/lab (pae9b86), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @material-ui/pickers (pcef653), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @mui/icons-material (p372ecc), requested by react-awesome-query-builder.
+#15 2.398 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @mui/lab (p1e6c2b), requested by react-awesome-query-builder.
+#15 2.399 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide @mui/material (pe8869a), requested by react-awesome-query-builder.
+#15 2.399 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide antd (pfc45ab), requested by react-awesome-query-builder.
+#15 2.399 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide bootstrap (p1a0bee), requested by react-awesome-query-builder.
+#15 2.399 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide material-ui-confirm (pa697d6), requested by react-awesome-query-builder.
+#15 2.399 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide react (p935688), requested by react-awesome-query-builder.
+#15 2.399 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide react-dom (p43069d), requested by react-awesome-query-builder.
+#15 2.399 ➤ YN0002: │ @***/routing-forms@workspace:packages/app-store/routing-forms doesn't provide reactstrap (p5d8b8e), requested by react-awesome-query-builder.
+#15 2.399 ➤ YN0002: │ @***/salesforce@workspace:packages/app-store/salesforce doesn't provide graphql (p03dc67), requested by @graphql-codegen/cli and other dependencies.
+#15 2.399 ➤ YN0002: │ @***/stripepayment@workspace:packages/app-store/stripepayment doesn't provide @types/node (p094c17), requested by ts-node.
+#15 2.399 ➤ YN0002: │ @***/stripepayment@workspace:packages/app-store/stripepayment doesn't provide next (p8f63ce), requested by @***/features.
+#15 2.399 ➤ YN0002: │ @***/stripepayment@workspace:packages/app-store/stripepayment doesn't provide react (pf63884), requested by @***/app-store and other dependencies.
+#15 2.399 ➤ YN0002: │ @***/stripepayment@workspace:packages/app-store/stripepayment doesn't provide react-dom (p752041), requested by @***/app-store and other dependencies.
+#15 2.399 ➤ YN0002: │ @***/stripepayment@workspace:packages/app-store/stripepayment doesn't provide react-is (p6ce5fc), requested by @***/features.
+#15 2.399 ➤ YN0002: │ @***/stripepayment@workspace:packages/app-store/stripepayment doesn't provide typescript (p26868b), requested by ts-node.
+#15 2.399 ➤ YN0002: │ @***/testing@workspace:packages/testing doesn't provide @prisma/client (p1bb091), requested by prismock.
+#15 2.399 ➤ YN0002: │ @***/testing@workspace:packages/testing doesn't provide prisma (pd234c6), requested by prismock.
+#15 2.399 ➤ YN0002: │ @***/trpc@workspace:packages/trpc doesn't provide next (pee5e1d), requested by @trpc/next.
+#15 2.399 ➤ YN0002: │ @***/trpc@workspace:packages/trpc doesn't provide react (p7c1ec5), requested by @tanstack/react-query and other dependencies.
+#15 2.399 ➤ YN0002: │ @***/trpc@workspace:packages/trpc doesn't provide react-dom (pa445c5), requested by @trpc/next and other dependencies.
+#15 2.399 ➤ YN0002: │ @***/ui@workspace:packages/ui [7bb91] doesn't provide @lexical/clipboard (pdfed0c), requested by @lexical/rich-text.
+#15 2.399 ➤ YN0002: │ @***/ui@workspace:packages/ui [7bb91] doesn't provide @testing-library/dom (p7379be), requested by @testing-library/user-event.
+#15 2.399 ➤ YN0002: │ @***/ui@workspace:packages/ui doesn't provide @lexical/clipboard (p075131), requested by @lexical/rich-text.
+#15 2.399 ➤ YN0002: │ @***/ui@workspace:packages/ui doesn't provide @testing-library/dom (p5220f8), requested by @testing-library/user-event.
+#15 2.399 ➤ YN0002: │ @***/ui@workspace:packages/ui doesn't provide react (p5c5929), requested by @lexical/react and other dependencies.
+#15 2.399 ➤ YN0002: │ @***/ui@workspace:packages/ui doesn't provide react-dom (pab9257), requested by @lexical/react and other dependencies.
+#15 2.399 ➤ YN0002: │ @coss/ui@workspace:packages/coss-ui [819b8] doesn't provide @types/node (pc23370), requested by ts-node.
+#15 2.399 ➤ YN0002: │ @coss/ui@workspace:packages/coss-ui doesn't provide @types/node (pac1c22), requested by ts-node.
+#15 2.399 ➤ YN0002: │ @coss/ui@workspace:packages/coss-ui doesn't provide react (p7d465b), requested by @base-ui/react and other dependencies.
+#15 2.399 ➤ YN0002: │ @coss/ui@workspace:packages/coss-ui doesn't provide react-dom (pdf54be), requested by @base-ui/react.
+#15 2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide @prisma/client (pf84d28), requested by prismock.
+#15 2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide @testing-library/dom (p6962c8), requested by @testing-library/react.
+#15 2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide next (p83ec21), requested by next-router-mock.
+#15 2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide prisma (p99681d), requested by prismock.
+#15 2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide react (pc09232), requested by @testing-library/react and other dependencies.
+#15 2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide react-dom (pa51104), requested by @testing-library/react.
+#15 2.399 ➤ YN0086: │ Some peer dependencies are incorrectly met by your project; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code.
+#15 2.399 ➤ YN0086: │ Some peer dependencies are incorrectly met by dependencies; run yarn explain peer-requirements for details.
+#15 2.557 ➤ YN0028: │ The lockfile would have been modified by this install, which is explicitly forbidden.
+#15 2.557 ➤ YN0000: └ Completed
+#15 2.557 ➤ YN0000: · Failed with errors in 0s 881ms
+#15 ERROR: process "/bin/sh -c yarn install --immutable --inline-builds" did not complete successfully: exit code: 1
+------
+ > [build 10/12] RUN yarn install --immutable --inline-builds:
+2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide @testing-library/dom (p6962c8), requested by @testing-library/react.
+2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide next (p83ec21), requested by next-router-mock.
+2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide prisma (p99681d), requested by prismock.
+2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide react (pc09232), requested by @testing-library/react and other dependencies.
+2.399 ➤ YN0002: │ ***-monorepo@workspace:. doesn't provide react-dom (pa51104), requested by @testing-library/react.
+2.399 ➤ YN0086: │ Some peer dependencies are incorrectly met by your project; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code.
+2.399 ➤ YN0086: │ Some peer dependencies are incorrectly met by dependencies; run yarn explain peer-requirements for details.
+2.557 ➤ YN0028: │ The lockfile would have been modified by this install, which is explicitly forbidden.
+2.557 ➤ YN0000: └ Completed
+2.557 ➤ YN0000: · Failed with errors in 0s 881ms
+------
+Dockerfile:24
+--------------------
+  22 |     # Install all dependencies for the entire workspace
+  23 |     RUN corepack enable
+  24 | >>> RUN yarn install --immutable --inline-builds
+  25 |     
+  26 |     # Copy the rest of the monorepo
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c yarn install --immutable --inline-builds" did not complete successfully: exit code: 1
+Error: Process completed with exit code 1.

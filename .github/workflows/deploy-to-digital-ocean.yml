@@ -33,6 +33,9 @@ jobs:
           username: ${{ secrets.DO_REGISTRY_TOKEN }}
           password: ${{ secrets.DO_REGISTRY_TOKEN }}
 
+      - name: Install dependencies
+        run: yarn install --immutable --inline-builds
+
       - name: Build and push Docker images
         run: |
           # Export variables for image tags to the shell environment
