@@ -87,6 +87,11 @@ jobs:
           REDIS_URL=${{ secrets.REDIS_URL || 'redis://redis:6379' }}
           EOF
 
+          # Build and push the main web application image
+          docker build -t ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom:${DOCKER_IMAGE_TAG:-latest} -f apps/web/Dockerfile .
+          docker push ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom:${DOCKER_IMAGE_TAG:-latest}
+
+          # Build and push the API image
           docker build -t ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom-api:${DOCKER_IMAGE_TAG:-latest} -f apps/api/v2/Dockerfile .
           docker push ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom-api:${DOCKER_IMAGE_TAG:-latest}
 
@@ -153,6 +158,14 @@ jobs:
               stack:
                 driver: bridge
             EOF
+
+            # Display the fully resolved image names for debugging
+            echo "--- Docker Compose Configuration ---"
+            docker compose -f docker-compose.prod.yml config
+            echo "--- End Docker Compose Configuration ---"
+            echo "Attempting to pull the following images:"
+            echo "- ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom:${DOCKER_IMAGE_TAG:-latest}"
+            echo "- ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom-api:${DOCKER_IMAGE_TAG:-latest}"
 
             # Login to DigitalOcean Container Registry
             echo "$DO_REGISTRY_TOKEN" | docker login registry.digitalocean.com -u doctl --password-stdin
