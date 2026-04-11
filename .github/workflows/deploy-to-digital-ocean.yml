@@ -84,7 +84,7 @@ jobs:
           REDIS_URL=${{ secrets.REDIS_URL || 'redis://redis:6379' }}
           EOF
 
-          docker compose -f docker-compose.yml build
+          docker build -t ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom-api:${DOCKER_IMAGE_TAG:-latest} -f apps/api/v2/Dockerfile .
           docker compose -f docker-compose.yml push
 
       - name: Deploy to DigitalOcean

@@ -15,19 +15,37 @@ ENV DATABASE_DIRECT_URL=${DATABASE_DIRECT_URL}
 ENV DATABASE_URL=${DATABASE_URL}
 ENV USE_POOL="true"
 
-COPY package.json yarn.lock .npmrc .yarnrc.yml ./ 
+COPY package.json yarn.lock .npmrc .yarnrc.yml ./
 COPY .yarn ./.yarn
+COPY packages /calcom/packages
 
-# Install dependencies
+# Install all dependencies for the entire workspace
 RUN corepack enable
-RUN yarn install --frozen-lockfile
+RUN yarn install --immutable --inline-builds
 
-# Copy rest of the code
+# Copy the rest of the monorepo
 COPY . .
-RUN yarn workspace @calcom/api-v2 run generate-schemas
+
+# Set environment variables for the build
+ENV NODE_ENV="production"
+ENV NODE_OPTIONS="--max-old-space-size=8192"
+ENV DATABASE_DIRECT_URL=${DATABASE_DIRECT_URL}
+ENV DATABASE_URL=${DATABASE_URL}
+ENV USE_POOL="true"
+
+# Build the specific api/v2 workspace
 RUN yarn workspace @calcom/api-v2 run build:docker
-RUN yarn workspace @calcom/api-v2 run build
 
+# Final image
+FROM node:20-alpine
+
+WORKDIR /calcom
+
+# Copy the built application from the build stage
+COPY --from=build /calcom/apps/api/v2/dist /calcom/apps/api/v2/dist
+COPY --from=build /calcom/node_modules /calcom/node_modules
+COPY --from=build /calcom/package.json /calcom/
+
+# Expose the port and start the application
 EXPOSE 80
-
-CMD [ "yarn", "workspace", "@calcom/api-v2", "start:prod"]
+CMD [ "yarn", "workspace", "@calcom/api-v2", "start:prod" ]
