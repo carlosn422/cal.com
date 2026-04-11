@@ -47,9 +47,50 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           password: ${{ secrets.DROPLET_PASSWORD }}
           script: |
-            cd /path/to/your/app
+            mkdir -p /opt/cal.com
+            cd /opt/cal.com
+
             export DO_REGISTRY_URL=${{ secrets.DO_REGISTRY_URL }}
             export DO_REGISTRY_NAME=${{ secrets.DO_REGISTRY_NAME }}
             export DOCKER_IMAGE_TAG=${{ github.sha }}
+            export DATABASE_URL=${{ secrets.DATABASE_URL }}
+            export NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
+            export CALENDSO_ENCRYPTION_KEY=${{ secrets.CALENDSO_ENCRYPTION_KEY }}
+            export NEXT_PUBLIC_WEBAPP_URL=${{ secrets.NEXT_PUBLIC_WEBAPP_URL }}
+            export API_KEY_PREFIX=${{ secrets.API_KEY_PREFIX }}
+            export CALCOM_LICENSE_KEY=${{ secrets.CALCOM_LICENSE_KEY }}
+
+            cat << EOF > docker-compose.prod.yml
+            version: '3.8'
+            services:
+              calcom:
+                image: ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom:${DOCKER_IMAGE_TAG:-latest}
+                ports:
+                  - "3000:3000"
+                environment:
+                  - DATABASE_URL=${DATABASE_URL}
+                  - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+                  - CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY}
+                  - NEXT_PUBLIC_WEBAPP_URL=${NEXT_PUBLIC_WEBAPP_URL}
+                  - WEBPACK_WATCHING=false
+                depends_on:
+                  - redis
+              calcom-api:
+                image: ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom-api:${DOCKER_IMAGE_TAG:-latest}
+                ports:
+                  - "80:80"
+                environment:
+                  - DATABASE_URL=${DATABASE_URL}
+                  - API_KEY_PREFIX=${API_KEY_PREFIX}
+                  - CALENDSO_ENCRYPTION_KEY=${CALENDSO_ENCRYPTION_KEY}
+                  - CALCOM_LICENSE_KEY=${CALCOM_LICENSE_KEY}
+                depends_on:
+                  - redis
+              redis:
+                image: redis:6.2-alpine
+                ports:
+                  - "6379:6379"
+            EOF
+
             docker compose -f docker-compose.prod.yml pull
             docker compose -f docker-compose.prod.yml up -d --force-recreate
