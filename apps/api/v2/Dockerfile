@@ -45,4 +45,6 @@ COPY --from=build /calcom/package.json /calcom/
 
 # Expose the port and start the application
 EXPOSE 80
-CMD ["node", "dist/apps/api/v2/src/main.js"]
+#CMD ["find", "/calcom/dist", "-type", "f", "-name", "main.js"]
+#CMD ["node", "dist/apps/api/v2/src/main.js"] - not working
+CMD ["node", "apps/api/v2/dist/apps/api/v2/src/main.js"]
