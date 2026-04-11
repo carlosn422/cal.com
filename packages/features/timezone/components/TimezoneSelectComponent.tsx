@@ -5,7 +5,7 @@ import { addTimezonesToDropdown, filterBySearchText, handleOptionLabel } from "@
 import classNames from "@calcom/ui/classNames";
 import { getReactSelectProps, inputStyles } from "@calcom/ui/components/form";
 import { useCallback, useMemo, useState } from "react";
-import type { ITimezone, ITimezoneOption, Props as SelectProps } from "react-timezone-select";
+import type { ITimezone, ITimezoneOption, Props as SelectProps, CSSObjectWithLabel } from "react-timezone-select";
 import BaseSelect from "react-timezone-select";
 
 export type TimezoneSelectComponentProps = SelectProps & {
@@ -102,15 +102,15 @@ export function TimezoneSelectComponent({
       {...reactSelectProps}
       timezones={timezones}
       styles={{
-        control: (base) =>
-          Object.assign({}, base, {
-            minHeight: size === "sm" ? "28px" : "36px",
-            height: grow ? "h-auto " : size === "sm" ? "28px" : "36px",
-          }),
-        menuList: (base) =>
-          Object.assign({}, base, {
-            height: grow ? "h-auto " : size === "sm" ? "200px" : "180px",
-          }),
+        control: (base: CSSObjectWithLabel) => ({
+          ...base,
+          minHeight: size === "sm" ? "28px" : "36px",
+          height: grow ? "h-auto " : size === "sm" ? "28px" : "36px",
+        }),
+        menuList: (base: CSSObjectWithLabel) => ({
+          ...base,
+          height: grow ? "h-auto " : size === "sm" ? "200px" : "180px",
+        }),
       }}
       onInputChange={handleInputChange}
       {...props}
