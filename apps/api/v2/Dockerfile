@@ -15,10 +15,15 @@ ENV DATABASE_DIRECT_URL=${DATABASE_DIRECT_URL}
 ENV DATABASE_URL=${DATABASE_URL}
 ENV USE_POOL="true"
 
-COPY . .
+COPY package.json yarn.lock .npmrc .yarnrc.yml ./ 
+COPY .yarn ./.yarn
 
+# Install dependencies
 RUN corepack enable
-RUN yarn install
+RUN yarn install --frozen-lockfile
+
+# Copy rest of the code
+COPY . .
 RUN yarn workspace @calcom/api-v2 run generate-schemas
 RUN yarn workspace @calcom/api-v2 run build:docker
 RUN yarn workspace @calcom/api-v2 run build
