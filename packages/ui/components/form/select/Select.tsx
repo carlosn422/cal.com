@@ -1,6 +1,17 @@
 import { useId } from "@radix-ui/react-id";
 import * as React from "react";
-import type { GroupBase, SingleValue, MultiValue } from "react-select";
+import type {
+  ActionMeta,
+  ControlProps,
+  CSSObjectWithLabel,
+  GroupBase,
+  IndicatorsContainerProps,
+  MultiValue,
+  OnChangeValue,
+  OptionProps,
+  PlaceholderProps,
+  SingleValue,
+} from "react-select";
 import ReactSelect from "react-select";
 
 import { useLocale } from "@calcom/lib/hooks/useLocale";
@@ -50,7 +61,7 @@ export const Select = <
       {...reactSelectProps}
       menuPlacement={menuPlacement}
       styles={{
-        control: (base, _props) =>
+        control: (base: CSSObjectWithLabel, _props: ControlProps<Option, IsMulti, Group>) =>
           Object.assign({}, base, {
             minHeight: size === "sm" ? "28px" : "32px",
             height: grow ? "auto" : size === "sm" ? "28px" : "32px",
@@ -58,7 +69,7 @@ export const Select = <
       }}
       classNames={{
         input: () => cx("text-emphasis", innerClassNames?.input),
-        option: (state) =>
+        option: (state: OptionProps<Option, IsMulti, Group>) =>
           cx(
             "bg-default flex cursor-pointer justify-between py-2 px-3 rounded-md text-default items-center",
             state.isFocused && "bg-subtle",
@@ -66,9 +77,10 @@ export const Select = <
             state.isSelected && "bg-emphasis text-default",
             innerClassNames?.option
           ),
-        placeholder: (state) => cx("text-muted", state.isFocused && variant !== "checkbox" && "hidden"),
+        placeholder: (state: PlaceholderProps<Option, IsMulti, Group>) =>
+          cx("text-muted", state.isFocused && variant !== "checkbox" && "hidden"),
         dropdownIndicator: () => cx("text-default", "w-4 h-4", "flex items-center justify-center "),
-        control: (state) =>
+        control: (state: ControlProps<Option, IsMulti, Group>) =>
           cx(
             inputStyles({ size }),
             state.isMulti
@@ -91,7 +103,7 @@ export const Select = <
         multiValue: () =>
           cx(
             "font-medium inline-flex items-center justify-center rounded bg-emphasis text-emphasis leading-none text-xs",
-            size == "sm" ? "px-1.5 py-px rounded-md" : "py-1 px-1.5 leading-none rounded-lg"
+            size === "sm" ? "px-1.5 py-px rounded-md" : "py-1 px-1.5 leading-none rounded-lg"
           ),
         menu: () =>
           cx(
@@ -104,7 +116,7 @@ export const Select = <
             "scroll-bar scrollbar-track-w-20 rounded-md flex flex-col space-y-1",
             innerClassNames?.menuList
           ),
-        indicatorsContainer: (state) =>
+        indicatorsContainer: (state: IndicatorsContainerProps<Option, IsMulti, Group>) =>
           cx(
             "flex items-start! justify-center mt-1 h-full",
             state.selectProps.menuIsOpen
@@ -173,18 +185,18 @@ export function SelectWithValidation<
   ...remainingProps
 }: SelectProps<Option, IsMulti, Group> & { required?: boolean }) {
   const [hiddenInputValue, _setHiddenInputValue] = React.useState(() => {
-    if (value instanceof Array || !value) {
+    if (Array.isArray(value) || !value) {
       return "";
     }
-    return value.value || "";
+    return (value as SingleValue<Option>)?.value || "";
   });
 
   const setHiddenInputValue = React.useCallback((value: MultiValue<Option> | SingleValue<Option>) => {
     let hiddenInputValue = "";
-    if (value instanceof Array) {
+    if (Array.isArray(value)) {
       hiddenInputValue = value.map((val) => val.value).join(",");
     } else {
-      hiddenInputValue = value?.value || "";
+      hiddenInputValue = (value as SingleValue<Option>)?.value || "";
     }
     _setHiddenInputValue(hiddenInputValue);
   }, []);
@@ -201,7 +213,7 @@ export function SelectWithValidation<
       <Select
         value={value}
         {...remainingProps}
-        onChange={(value, ...remainingArgs) => {
+        onChange={(value: OnChangeValue<Option, IsMulti>, ...remainingArgs: [ActionMeta<Option>]) => {
           setHiddenInputValue(value);
           if (onChange) {
             onChange(value, ...remainingArgs);
@@ -219,7 +231,9 @@ export function SelectWithValidation<
             position: "absolute",
           }}
           value={hiddenInputValue}
-          onChange={() => {}}
+          onChange={() => {
+            // No-op
+          }}
           // TODO:Not able to get focus to work
           // onFocus={() => selectRef.current?.focus()}
           required={required}
