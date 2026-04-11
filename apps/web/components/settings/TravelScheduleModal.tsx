@@ -18,6 +18,7 @@ import {
 import { Label } from "@coss/ui/components/label";
 import { useIsMobile } from "@coss/ui/hooks/use-mobile";
 import { useState } from "react";
+import type { CSSObjectWithLabel } from "react-select";
 import type { UseFormSetValue } from "react-hook-form";
 import type { FormValues } from "~/settings/my-account/general-view";
 
@@ -168,7 +169,7 @@ const TravelScheduleModal = ({
               onChange={({ value }) => setSelectedTimeZone(value)}
               menuPortalTarget={typeof document === "undefined" ? undefined : document.body}
               menuPlacement={isMobile ? "top" : "auto"}
-              styles={{ menuPortal: (base) => Object.assign({}, base, { zIndex: 9999 }) }}
+              styles={{ menuPortal: (base: CSSObjectWithLabel) => ({ ...base, zIndex: 9999 }) }}
               className="mb-11 mt-2 w-full rounded-md text-sm"
             />
           </div>
