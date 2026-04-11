@@ -17,6 +17,7 @@ ENV USE_POOL="true"
 
 COPY . .
 
+RUN corepack enable
 RUN yarn install
 RUN yarn workspace @calcom/api-v2 run generate-schemas
 RUN yarn workspace @calcom/api-v2 run build:docker
