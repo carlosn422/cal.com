@@ -15,16 +15,12 @@ ENV DATABASE_DIRECT_URL=${DATABASE_DIRECT_URL}
 ENV DATABASE_URL=${DATABASE_URL}
 ENV USE_POOL="true"
 
-COPY package.json yarn.lock .npmrc .yarnrc.yml ./
-COPY .yarn ./.yarn
-COPY packages /calcom/packages
+# Copy the entire monorepo
+COPY . .
 
 # Install all dependencies for the entire workspace
 RUN corepack enable
 RUN yarn install --immutable --inline-builds
-
-# Copy the rest of the monorepo
-COPY . .
 
 # Set environment variables for the build
 ENV NODE_ENV="production"
@@ -48,4 +44,4 @@ COPY --from=build /calcom/package.json /calcom/
 
 # Expose the port and start the application
 EXPOSE 80
-CMD [ "yarn", "workspace", "@calcom/api-v2", "start:prod" ]
+CMD ["node", "dist/apps/api/v2/src/main.js"]
