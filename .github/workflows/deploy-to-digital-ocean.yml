@@ -87,13 +87,30 @@ jobs:
           REDIS_URL=${{ secrets.REDIS_URL || 'redis://redis:6379' }}
           EOF
 
+          # Debug: Show current directory and Dockerfile locations
+          echo "--- Debug Information ---"
+          pwd
+          ls -la
+          find . -name Dockerfile
+          echo "--- End Debug Information ---"
+
+          # Define image variables
+          export IMAGE_TAG=${DOCKER_IMAGE_TAG:-latest}
+          export WEB_IMAGE_NAME="${DO_REGISTRY_URL}/calcom:${IMAGE_TAG}"
+          export API_IMAGE_NAME="${DO_REGISTRY_URL}/calcom-api:${IMAGE_TAG}"
+
+          # Print resolved image names
+          echo "Building and pushing the following images:"
+          echo "Web: ${WEB_IMAGE_NAME}"
+          echo "API: ${API_IMAGE_NAME}"
+
           # Build and push the main web application image
-          docker build -t ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom:${DOCKER_IMAGE_TAG:-latest} -f apps/web/Dockerfile .
-          docker push ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom:${DOCKER_IMAGE_TAG:-latest}
+          docker build -t ${WEB_IMAGE_NAME} -f Dockerfile .
+          docker push ${WEB_IMAGE_NAME}
 
           # Build and push the API image
-          docker build -t ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom-api:${DOCKER_IMAGE_TAG:-latest} -f apps/api/v2/Dockerfile .
-          docker push ${DO_REGISTRY_URL}/${DO_REGISTRY_NAME}/calcom-api:${DOCKER_IMAGE_TAG:-latest}
+          docker build -t ${API_IMAGE_NAME} -f apps/api/v2/Dockerfile .
+          docker push ${API_IMAGE_NAME}
 
       - name: Deploy to DigitalOcean
         uses: appleboy/ssh-action@v1.0.3
