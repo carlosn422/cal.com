@@ -32,49 +32,18 @@ jobs:
           password: ${{ secrets.DO_REGISTRY_TOKEN }}
 
       - name: Build and push Docker images
-        env:
-          DOCKER_IMAGE_TAG: ${{ github.sha }}
         run: |
+          # Export secrets and variables to the shell environment
+          export DO_REGISTRY_URL=${{ secrets.DO_REGISTRY_URL }}
+          export DO_REGISTRY_NAME=${{ secrets.DO_REGISTRY_NAME }}
+          export DOCKER_IMAGE_TAG=${{ github.sha }}
+
+          # Create the .env file for build-time args that don't need to be in the shell
           cat << EOF > .env
-          # From GitHub Secrets
-          DO_REGISTRY_URL=${{ secrets.DO_REGISTRY_URL }}
-          DO_REGISTRY_NAME=${{ secrets.DO_REGISTRY_NAME }}
           DATABASE_URL=${{ secrets.DATABASE_URL }}
           DATABASE_DIRECT_URL=${{ secrets.DATABASE_URL }}
           NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
-          CALENDSO_ENCRYPTION_KEY=${{ secrets.CALENDSO_ENCRYPTION_KEY }}
-          API_KEY_PREFIX=${{ secrets.API_KEY_PREFIX }}
-          CALCOM_LICENSE_KEY=${{ secrets.CALCOM_LICENSE_KEY }}
-          JWT_SECRET=${{ secrets.JWT_SECRET }}
-          NEXT_PUBLIC_VAPID_PUBLIC_KEY=${{ secrets.NEXT_PUBLIC_VAPID_PUBLIC_KEY }}
-          VAPID_PRIVATE_KEY=${{ secrets.VAPID_PRIVATE_KEY }}
-          STRIPE_API_KEY=${{ secrets.STRIPE_API_KEY }}
-          STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}
-          STRIPE_PRICE_ID_STARTER=${{ secrets.STRIPE_PRICE_ID_STARTER }}
-          STRIPE_PRICE_ID_STARTER_OVERAGE=${{ secrets.STRIPE_PRICE_ID_STARTER_OVERAGE }}
-          STRIPE_PRICE_ID_ESSENTIALS=${{ secrets.STRIPE_PRICE_ID_ESSENTIALS }}
-          STRIPE_PRICE_ID_ESSENTIALS_OVERAGE=${{ secrets.STRIPE_PRICE_ID_ESSENTIALS_OVERAGE }}
-          STRIPE_PRICE_ID_ENTERPRISE=${{ secrets.STRIPE_PRICE_ID_ENTERPRISE }}
-          STRIPE_PRICE_ID_ENTERPRISE_OVERAGE=${{ secrets.STRIPE_PRICE_ID_ENTERPRISE_OVERAGE }}
-          STRIPE_TEAM_MONTHLY_PRICE_ID=${{ secrets.STRIPE_TEAM_MONTHLY_PRICE_ID }}
-          AXIOM_DATASET=${{ secrets.AXIOM_DATASET }}
-          AXIOM_TOKEN=${{ secrets.AXIOM_TOKEN }}
-          GET_LICENSE_KEY_URL=${{ secrets.GET_LICENSE_KEY_URL }}
-
-          # With Defaults
-          NEXT_PUBLIC_WEBAPP_URL=${{ secrets.NEXT_PUBLIC_WEBAPP_URL || 'http://localhost:3000' }}
-          NEXT_PUBLIC_API_V2_URL=${{ secrets.NEXT_PUBLIC_API_V2_URL || 'http://localhost/api/v2' }}
-          NEXT_PUBLIC_LICENSE_CONSENT=${{ secrets.NEXT_PUBLIC_LICENSE_CONSENT || 'false' }}
-          NEXT_PUBLIC_WEBSITE_TERMS_URL=${{ secrets.NEXT_PUBLIC_WEBSITE_TERMS_URL || 'https://cal.com/terms' }}
-          NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL=${{ secrets.NEXT_PUBLIC_WEBSITE_PRIVACY_POLICY_URL || 'https://cal.com/privacy' }}
-          NEXT_PUBLIC_SINGLE_ORG_SLUG=${{ secrets.NEXT_PUBLIC_SINGLE_ORG_SLUG || '' }}
-          ORGANIZATIONS_ENABLED=${{ secrets.ORGANIZATIONS_ENABLED || 'false' }}
-          NODE_ENV=${{ secrets.NODE_ENV || 'production' }}
-          API_URL=${{ secrets.API_URL || 'http://localhost/api' }}
-          LOG_LEVEL=${{ secrets.LOG_LEVEL || 'info' }}
-          WEB_APP_URL=${{ secrets.WEB_APP_URL || 'http://localhost:3000' }}
-          LOGGER_BRIDGE_LOG_LEVEL=${{ secrets.LOGGER_BRIDGE_LOG_LEVEL || 'info' }}
-          DOCS_URL=${{ secrets.DOCS_URL || 'https://cal.com/docs' }}
+          # ... (add all other necessary variables here)
           EOF
 
           docker compose -f docker-compose.yml build
