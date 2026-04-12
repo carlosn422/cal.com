@@ -51,7 +51,7 @@ if (!process.env.NEXTAUTH_SECRET) throw new Error("Please set NEXTAUTH_SECRET");
 if (!process.env.CALENDSO_ENCRYPTION_KEY) throw new Error("Please set CALENDSO_ENCRYPTION_KEY");
 
 const isOrganizationsEnabled =
-  process.env.ORGANIZATIONS_ENABLED === "1" || process.env.ORGANIZATIONS_ENABLED === "true";
+  process.env.ORGANIZATIONS_ENABLED === "1" || process.env.ORGANIZations_ENABLED === "true";
 
 // Type-safe way to assign to process.env (which is typed as readonly in environment.d.ts)
 const env = process.env as Record<string, string | undefined>;
@@ -163,18 +163,6 @@ const orgDomainMatcherConfig: {
             type: "host",
             value: nextJsOrgRewriteConfig.orgHostPath,
           },
-    typescript: {
-      // !! WARN !!
-      // Dangerously allow production builds to successfully complete even if
-      // your project has type errors.
-      // !! WARN !!
-      ignoreBuildErrors: true,
-    },
-    eslint: {
-      // Warning: This allows production builds to successfully complete even if
-      // your project has ESLint errors.
-      ignoreDuringBuilds: true,
-    },
         ],
         source: "/",
       },
