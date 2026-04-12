@@ -2,7 +2,7 @@ name: Run i18n AI automation
 on:
   push:
     branches:
-      - main
+      - main-dont-run-this
 concurrency:
   group: ${{ github.workflow }}-main
   cancel-in-progress: false
