@@ -1,27 +1,28 @@
 FROM node:20-alpine AS build
 
-ARG DATABASE_DIRECT_URL
-ARG DATABASE_URL
-
 WORKDIR /calcom
 
 RUN apk add --no-cache build-base python3 make
-RUN set -eux;
 RUN ln -s /usr/lib/libssl.so.3 /lib/libssl.so.3
 
-ENV NODE_ENV="production"
-ENV NODE_OPTIONS="--max-old-space-size=8192"
-ENV DATABASE_DIRECT_URL=${DATABASE_DIRECT_URL}
-ENV DATABASE_URL=${DATABASE_URL}
-ENV USE_POOL="true"
+ENV NODE_ENV="production" \
+    NODE_OPTIONS="--max-old-space-size=8192" \
+    USE_POOL="true"
 
 COPY . .
+
+ARG DATABASE_URL
+ARG DATABASE_DIRECT_URL
 
 RUN yarn install
 RUN yarn workspace @calcom/api-v2 run generate-schemas
 RUN yarn workspace @calcom/api-v2 run build:docker
 
+
+FROM node:20-alpine AS runner
+
 WORKDIR /calcom/apps/api/v2
+COPY --from=build /calcom/apps/api/v2/dist ./dist
 
 EXPOSE 80
 
