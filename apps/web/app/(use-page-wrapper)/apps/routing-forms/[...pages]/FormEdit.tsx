@@ -21,6 +21,7 @@ import SingleForm from "@components/apps/routing-forms/SingleForm";
 import { ChevronDownIcon, MenuIcon } from "@coss/ui/icons";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { inferSSRProps } from "@lib/types/inferSSRProps";
+import type { CSSObjectWithLabel, OptionProps } from "react-select";
 import type { UseFormReturn } from "react-hook-form";
 import { Controller, useFieldArray, useWatch } from "react-hook-form";
 import { Toaster } from "sonner";
@@ -182,11 +183,14 @@ function Field({
                     <SelectField
                       maxMenuHeight={200}
                       styles={{
-                        singleValue: (baseStyles) =>
+                        singleValue: (baseStyles: CSSObjectWithLabel) =>
                           Object.assign({}, baseStyles, {
                             fontSize: "14px",
                           }),
-                        option: (baseStyles) =>
+                        option: (
+                          baseStyles: CSSObjectWithLabel,
+                          props: OptionProps<typeof FieldTypes[number]>
+                        ) =>
                           Object.assign({}, baseStyles, {
                             fontSize: "14px",
                           }),
