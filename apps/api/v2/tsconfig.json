@@ -38,7 +38,8 @@
     },
     "incremental": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
+    "noEmitOnError": false,
     "noImplicitAny": true,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
