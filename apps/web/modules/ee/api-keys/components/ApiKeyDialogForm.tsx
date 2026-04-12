@@ -18,6 +18,7 @@ import { Switch } from "@calcom/ui/components/form";
 import { showToast } from "@calcom/ui/components/toast";
 import { Tooltip } from "@calcom/ui/components/tooltip";
 import { revalidateApiKeysList } from "@calcom/web/app/(use-page-wrapper)/settings/(settings-layout)/developer/api-keys/actions";
+import type { CSSObjectWithLabel, SingleValue } from "react-select";
 
 export default function ApiKeyDialogForm({
   defaultValues,
@@ -217,11 +218,11 @@ export default function ApiKeyDialogForm({
                   return (
                     <SelectField
                       styles={{
-                        singleValue: (baseStyles) =>
+                        singleValue: (baseStyles: CSSObjectWithLabel) =>
                           Object.assign({}, baseStyles, {
                             fontSize: "14px",
                           }),
-                        option: (baseStyles) =>
+                        option: (baseStyles: CSSObjectWithLabel) =>
                           Object.assign({}, baseStyles, {
                             fontSize: "14px",
                           }),
@@ -229,7 +230,7 @@ export default function ApiKeyDialogForm({
                       isDisabled={watchNeverExpires || !!defaultValues}
                       containerClassName="data-testid-field-type"
                       options={expiresAtOptions}
-                      onChange={(option) => {
+                      onChange={(option: SingleValue<Option>) => {
                         if (!option) {
                           return;
                         }

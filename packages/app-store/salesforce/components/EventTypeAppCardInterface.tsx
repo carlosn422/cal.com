@@ -1,5 +1,6 @@
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import type { SingleValue } from "react-select";
 
 import { useAppContextWithSchema } from "@calcom/app-store/EventTypeAppContext";
 import AppCard from "@calcom/app-store/_components/AppCard";
@@ -50,6 +51,11 @@ const EventTypeAppCard: EventTypeAppCardComponent = function EventTypeAppCard({ 
   const rrSkipFieldRules = (getAppData("rrSkipFieldRules") ?? []) as RRSkipFieldRule[];
 
   const { t } = useLocale();
+
+  type RecordOption = {
+    label: string;
+    value: SalesforceRecordEnum;
+  };
 
   const recordOptions = [
     { label: t("contact"), value: SalesforceRecordEnum.CONTACT },
@@ -119,7 +125,7 @@ const EventTypeAppCard: EventTypeAppCardComponent = function EventTypeAppCard({ 
               className="w-[200px]"
               options={recordOptions}
               value={createEventOnSelectedOption}
-              onChange={(e) => {
+              onChange={(e: SingleValue<RecordOption>) => {
                 if (e) {
                   setCreateEventOnSelectedOption(e);
                   setAppData("createEventOn", e.value);
@@ -390,7 +396,7 @@ const EventTypeAppCard: EventTypeAppCardComponent = function EventTypeAppCard({ 
                       className="w-60"
                       options={checkOwnerOptions}
                       value={checkOwnerSelectedOption}
-                      onChange={(e) => {
+                      onChange={(e: SingleValue<RecordOption>) => {
                         if (e) {
                           setCheckOwnerSelectedOption(e);
                           setAppData("roundRobinSkipCheckRecordOn", e.value);

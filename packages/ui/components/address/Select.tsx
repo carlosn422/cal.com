@@ -1,4 +1,4 @@
-import type { GroupBase, InputProps, Props } from "react-select";
+import type { GroupBase, InputProps, Props, CSSObjectWithLabel, OptionProps } from "react-select";
 import ReactSelect, { components } from "react-select";
 
 import classNames from "@calcom/ui/classNames";
@@ -41,7 +41,7 @@ function Select<
         },
       })}
       styles={{
-        option: (provided, state) =>
+        option: (provided: CSSObjectWithLabel, state: OptionProps<Option, IsMulti, Group>) =>
           Object.assign({}, provided, {
             color: state.isSelected ? "var(--brand-text-color)" : "black",
             ":active": {
@@ -78,17 +78,17 @@ export function UnstyledSelect<
         Input: InputComponent,
       }}
       styles={{
-        container: (provided, _props) =>
+        container: (provided: CSSObjectWithLabel) =>
           Object.assign({}, provided, {
             width: "100%",
           }),
-        control: (provided, _props) =>
+        control: (provided: CSSObjectWithLabel) =>
           Object.assign({}, provided, {
             backgroundColor: " transparent",
             border: "none",
             boxShadow: "none",
           }),
-        option: (provided, state) =>
+        option: (provided: CSSObjectWithLabel, state: OptionProps<Option, IsMulti, Group>) =>
           Object.assign({}, provided, {
             color: state.isSelected ? "var(--brand-text-color)" : "black",
             ":active": {

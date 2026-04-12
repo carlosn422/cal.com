@@ -1,3 +1,5 @@
+import type { SingleValue } from "react-select";
+
 import { SelectedCalendarsSettings } from "@calcom/atoms/selected-calendars/SelectedCalendarsSettings";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
 import type { RouterOutputs } from "@calcom/trpc/react";
@@ -275,7 +277,7 @@ const SelectedCalendarsSettingsHeading = (props: {
         <div className="mt-2 flex flex-row items-center space-x-2">
           <span className="text-default text-sm">Using</span>
           <Select
-            onChange={(option) => {
+                        onChange={(option: SingleValue<typeof optionsToSwitchScope[number]>) => {
               if (!option) return;
               props.setScope(option.value);
             }}

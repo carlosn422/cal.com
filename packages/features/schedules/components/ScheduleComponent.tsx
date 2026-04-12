@@ -10,7 +10,7 @@ import type {
   UseFieldArrayRemove,
 } from "react-hook-form";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { createFilter, type GroupBase, type Props } from "react-select";
+import { createFilter, type GroupBase, type Props, type SingleValue } from "react-select";
 
 import type { scheduleClassNames } from "@calcom/atoms/availability/types";
 import type { ConfigType } from "@calcom/dayjs";
@@ -374,7 +374,7 @@ const TimeRangeField = ({
         value={value.start}
         menuPlacement="bottom"
         innerClassNames={innerClassNames}
-        onChange={(option) => {
+        onChange={(option: SingleValue<IOption>) => {
           const newStart = new Date(option?.value as number);
           if (newStart >= new Date(value.end)) {
             const newEnd = new Date(option?.value as number);
@@ -394,7 +394,7 @@ const TimeRangeField = ({
         min={value.start}
         innerClassNames={innerClassNames}
         menuPlacement="bottom"
-        onChange={(option) => {
+        onChange={(option: SingleValue<IOption>) => {
           onChange({ ...value, end: new Date(option?.value as number) });
         }}
       />

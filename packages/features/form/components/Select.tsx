@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import type { GroupBase, Props, InputProps, SingleValue, MultiValue } from "react-select";
+import type { GroupBase, Props, InputProps, SingleValue, MultiValue, CSSObjectWithLabel, OptionProps, ActionMeta } from "react-select";
 import ReactSelect, { components } from "react-select";
 
 import { useGetTheme } from "@calcom/lib/hooks/useTheme";
@@ -102,7 +102,7 @@ function Select<
         },
       })}
       styles={{
-        option: (provided, state) =>
+        option: (provided: CSSObjectWithLabel, state: OptionProps<Option, IsMulti, Group>) =>
           Object.assign({}, provided, {
             color: state.isSelected ? "var(--brand-text-color)" : "black",
             ":active": {
@@ -133,7 +133,7 @@ export function SelectWithValidation<
   ...remainingProps
 }: SelectProps<Option, isMulti, Group> & { required?: boolean }) {
   const [hiddenInputValue, _setHiddenInputValue] = useState(() => {
-    if (value instanceof Array || !value) {
+    if (Array.isArray(value) || !value) {
       return;
     }
     return value.value || "";
@@ -161,12 +161,11 @@ export function SelectWithValidation<
       <Select
         value={value}
         {...remainingProps}
-        onChange={(value, ...remainingArgs) => {
+        onChange={(value, actionMeta) => {
           setHiddenInputValue(value);
           if (onChange) {
-            onChange(value, ...remainingArgs);
+            onChange(value, actionMeta);
           }
-        }}
       />
       {required && (
         <input

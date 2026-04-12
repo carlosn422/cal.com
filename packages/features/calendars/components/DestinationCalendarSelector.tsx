@@ -7,7 +7,7 @@ import { Select } from "@calcom/ui/components/form";
 import { CheckIcon } from "@coss/ui/icons";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import type { OptionProps, SingleValueProps } from "react-select";
+import type { OptionProps, SingleValueProps, CSSObjectWithLabel, SingleValue } from "react-select";
 import { components } from "react-select";
 
 type CalendarWithPrimary = Omit<IntegrationCalendar, "primary"> & {
@@ -191,9 +191,9 @@ const DestinationCalendarSelector = ({
         }
         options={options}
         styles={{
-          placeholder: (styles) => Object.assign({}, styles, content(hidePlaceholder)),
-          singleValue: (styles) => Object.assign({}, styles, content(hidePlaceholder)),
-          control: (defaultStyles) =>
+          placeholder: (styles: CSSObjectWithLabel) => Object.assign({}, styles, content(hidePlaceholder)),
+          singleValue: (styles: CSSObjectWithLabel) => Object.assign({}, styles, content(hidePlaceholder)),
+          control: (defaultStyles: CSSObjectWithLabel) =>
             Object.assign({}, defaultStyles, {
               "@media only screen and (min-width: 640px)": Object.assign(
                 {},
@@ -208,7 +208,7 @@ const DestinationCalendarSelector = ({
           customClassNames?.select
         )}
         innerClassNames={customClassNames?.innerClassNames}
-        onChange={(newValue) => {
+        onChange={(newValue: SingleValue<Option>) => {
           setSelectedOption(newValue);
           if (!newValue) {
             return;

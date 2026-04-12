@@ -13,6 +13,7 @@ import { Badge } from "@calcom/ui/components/badge";
 import { Select } from "@calcom/ui/components/form";
 
 import { getPlaceholderContent } from "../lib/getPlaceholderContent";
+import type { CSSObjectWithLabel, SingleValue } from "react-select";
 
 export type DestinationCalendarProps = {
   connectedCalendars: ConnectedDestinationCalendars["connectedCalendars"];
@@ -106,11 +107,11 @@ export const DestinationCalendarSelector = ({
         }
         options={options}
         styles={{
-          placeholder: (styles) =>
-            Object.assign({}, styles, getPlaceholderContent(hidePlaceholder, `'${t("create_events_on")}:'`)),
-          singleValue: (styles) =>
-            Object.assign({}, styles, getPlaceholderContent(hidePlaceholder, `'${t("create_events_on")}:'`)),
-          control: (defaultStyles) =>
+          placeholder: (styles: CSSObjectWithLabel) =>
+            Object.assign({}, styles, getPlaceholderContent(hidePlaceholder, `\'${t("create_events_on")}:\'`)),
+          singleValue: (styles: CSSObjectWithLabel) =>
+            Object.assign({}, styles, getPlaceholderContent(hidePlaceholder, `\'${t("create_events_on")}:\'`)),
+          control: (defaultStyles: CSSObjectWithLabel) =>
             Object.assign({}, defaultStyles, {
               "@media only screen and (min-width: 640px)": Object.assign(
                 {},
@@ -123,7 +124,12 @@ export const DestinationCalendarSelector = ({
         className={classNames(
           "my-2 block w-full min-w-0 flex-1 rounded-none rounded-r-sm border-default text-sm"
         )}
-        onChange={(newValue) => {
+        onChange={(newValue: SingleValue<{
+          label: string;
+          subtitle: string;
+          value: string;
+          delegationCredentialId: string | undefined;
+        }>) => {
           setSelectedOption(newValue);
           if (!newValue) {
             return;

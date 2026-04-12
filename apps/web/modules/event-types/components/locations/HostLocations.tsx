@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import type { CSSObjectWithLabel } from "react-select";
+import type { CSSObjectWithLabel, SingleValue, OptionProps, SingleValueProps } from "react-select";
 import { components } from "react-select";
 
 import { appStoreMetadata } from "@calcom/app-store/appStoreMetaData";
@@ -341,7 +341,7 @@ const HostLocationRow = ({
             menuPlacement="auto"
             menuPortalTarget={typeof document !== "undefined" ? document.body : null}
             styles={{
-              menuPortal: (base) => ({ ...base, zIndex: 9999 }) as CSSObjectWithLabel,
+              menuPortal: (base: CSSObjectWithLabel) => ({ ...base, zIndex: 9999 }) as CSSObjectWithLabel,
             }}
             onChange={handleLocationSelect}
           />
@@ -451,6 +451,11 @@ const useMassApplyDialogState = (isOpen: boolean) => {
 
 const MassApplyLocationDialog = ({ isOpen, onClose, onApply, isApplying }: MassApplyLocationDialogProps) => {
   const { t } = useLocale();
+  type SelectOption = {
+    value: string;
+    label: string | null;
+    icon?: string;
+  };
   const { selectedType, setSelectedType, inputValue, setInputValue, reset } = useMassApplyDialogState(isOpen);
   const allLocationOptions = useMemo(() => {
     return getAllLocationOptions().filter((opt) => {
@@ -504,19 +509,19 @@ const MassApplyLocationDialog = ({ isOpen, onClose, onApply, isApplying }: MassA
             <Label className="mb-1">{t("select_location_type")}</Label>
             <Select
               value={selectValue}
-              onChange={(option) => {
+              onChange={(option: SingleValue<SelectOption>) => {
                 setSelectedType(option?.value || null);
                 setInputValue("");
               }}
               options={selectOptions}
               className="w-full"
               components={{
-                Option: (props) => (
+                Option: (props: OptionProps<SelectOption>) => (
                   <components.Option {...props}>
                     <OptionWithIcon icon={props.data.icon} label={props.data.label} />
                   </components.Option>
                 ),
-                SingleValue: (props) => (
+                SingleValue: (props: SingleValueProps<SelectOption>) => (
                   <components.SingleValue {...props}>
                     <OptionWithIcon icon={props.data.icon} label={props.data.label} />
                   </components.SingleValue>

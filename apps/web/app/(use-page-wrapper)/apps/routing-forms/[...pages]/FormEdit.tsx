@@ -21,7 +21,7 @@ import SingleForm from "@components/apps/routing-forms/SingleForm";
 import { ChevronDownIcon, MenuIcon } from "@coss/ui/icons";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { inferSSRProps } from "@lib/types/inferSSRProps";
-import type { CSSObjectWithLabel, OptionProps } from "react-select";
+import type { CSSObjectWithLabel, OptionProps, SingleValue } from "react-select";
 import type { UseFormReturn } from "react-hook-form";
 import { Controller, useFieldArray, useWatch } from "react-hook-form";
 import { Toaster } from "sonner";
@@ -189,7 +189,7 @@ function Field({
                           }),
                         option: (
                           baseStyles: CSSObjectWithLabel,
-                          props: OptionProps<typeof FieldTypes[number]>
+                          props: OptionProps<(typeof FieldTypes)[number]>
                         ) =>
                           Object.assign({}, baseStyles, {
                             fontSize: "14px",
@@ -199,7 +199,7 @@ function Field({
                       isDisabled={!!router}
                       containerClassName="data-testid-field-type"
                       options={FieldTypes}
-                      onChange={(option) => {
+                      onChange={(option: SingleValue<(typeof FieldTypes)[number]>) => {
                         if (!option) {
                           return;
                         }

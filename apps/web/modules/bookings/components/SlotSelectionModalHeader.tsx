@@ -15,6 +15,13 @@ import type { ComponentType } from "react";
 import { useMemo } from "react";
 import { shallow } from "zustand/shallow";
 import { EventDetails } from "./event-meta/Details";
+import type {
+  ControlProps,
+  MenuProps,
+  SingleValueProps,
+  IndicatorsContainerProps,
+  ContainerProps,
+} from "react-select";
 
 const LoadingState = (): JSX.Element => {
   const { t } = useLocale();
@@ -104,19 +111,19 @@ export const SlotSelectionModalHeader = ({
                 timeZones={timeZones}
                 menuPosition="fixed"
                 classNames={{
-                  control: () =>
+                  control: (state: ControlProps) =>
                     "min-h-0! p-0 w-full border-0 bg-transparent focus-within:ring-0 shadow-none!",
-                  menu: () => "w-64! max-w-[90vw] mb-1",
-                  singleValue: () => "text-text py-1",
-                  indicatorsContainer: () => "ml-auto",
-                  container: () => "max-w-full",
+                  menu: (state: MenuProps) => "w-64! max-w-[90vw] mb-1",
+                  singleValue: (state: SingleValueProps) => "text-text py-1",
+                  indicatorsContainer: (state: IndicatorsContainerProps) => "ml-auto",
+                  container: (state: ContainerProps) => "max-w-full",
                 }}
                 value={
                   event?.lockTimeZoneToggleOnBookingPage
                     ? event.lockedTimeZone || CURRENT_TIMEZONE
                     : timezone || CURRENT_TIMEZONE
                 }
-                onChange={({ value }) => {
+                onChange={({ value }: { value: string }) => {
                   setTimezone(value);
                   setBookerStoreTimezone(value);
                 }}

@@ -4,7 +4,7 @@ import dayjs from "@calcom/dayjs";
 import cn from "@calcom/ui/classNames";
 import { ChevronLeftIcon, ChevronRightIcon } from "@coss/ui/icons";
 import type * as React from "react";
-import { DayPicker } from "react-day-picker";
+import { DayPicker, type CaptionLabelProps } from "react-day-picker";
 import { buttonClasses } from "../../button/Button";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
@@ -51,7 +51,7 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        CaptionLabel: (capLabelProps) => (
+        CaptionLabel: (capLabelProps: CaptionLabelProps) => (
           <div className="px-2">
             <span className="text-emphasis font-semibold leading-none">
               {dayjs(capLabelProps.displayMonth).format("MMMM")}{" "}

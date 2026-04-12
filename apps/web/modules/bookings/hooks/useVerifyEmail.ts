@@ -43,7 +43,7 @@ export const useVerifyEmail = ({
   const { data: isEmailVerificationRequired } =
     trpc.viewer.public.checkIfUserEmailVerificationRequired.useQuery(
       {
-        userSessionEmail: session?.user.email || "",
+                userSessionEmail: session?.user?.email || "",
         email: debouncedEmail,
       },
       {

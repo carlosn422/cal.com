@@ -45,7 +45,7 @@ export const MultiDropdownSelect = ({ options = [], value = [], ...props }: Prop
   return (
     <Select
       styles={{
-        multiValue: (base) =>
+        multiValue: (base: CSSObjectWithLabel) =>
           mergeStyles(base, {
             backgroundColor: "#F3F4F6",
             color: "#374151",
@@ -57,13 +57,13 @@ export const MultiDropdownSelect = ({ options = [], value = [], ...props }: Prop
             margin: "0px",
             lineHeight: "16px",
           }),
-        multiValueLabel: (base) =>
+        multiValueLabel: (base: CSSObjectWithLabel) =>
           mergeStyles(base, {
             paddingLeft: "0px",
             fontSize: "14px",
             padding: "0",
           }),
-        multiValueRemove: (base) =>
+        multiValueRemove: (base: CSSObjectWithLabel) =>
           mergeStyles(base, {
             color: "#4B5563",
             padding: "0",
@@ -75,7 +75,7 @@ export const MultiDropdownSelect = ({ options = [], value = [], ...props }: Prop
               height: "17px",
             },
           }),
-        control: (base) =>
+        control: (base: CSSObjectWithLabel) =>
           mergeStyles(base, {
             // Brute force to remove focus outline of input
             "& .cal-multiselect__input": {
@@ -84,7 +84,7 @@ export const MultiDropdownSelect = ({ options = [], value = [], ...props }: Prop
               caretColor: "transparent",
             },
           }),
-        valueContainer: (base) =>
+        valueContainer: (base: CSSObjectWithLabel) =>
           mergeStyles(base, {
             display: "flex",
             gap: "4px",
