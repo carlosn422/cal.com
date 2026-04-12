@@ -21,6 +21,8 @@ RUN yarn install
 RUN yarn workspace @calcom/api-v2 run generate-schemas
 RUN yarn workspace @calcom/api-v2 run build:docker
 
+WORKDIR /calcom/apps/api/v2
+
 EXPOSE 80
 
-CMD [ "yarn", "workspace", "@calcom/api-v2", "start:prod"]
+CMD [ "node", "dist/main.js" ]
