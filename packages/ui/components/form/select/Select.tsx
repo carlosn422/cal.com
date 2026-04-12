@@ -1,3 +1,5 @@
+import { useLocale } from "@calcom/lib/hooks/useLocale";
+import cx from "@calcom/ui/classNames";
 import { useId } from "@radix-ui/react-id";
 import * as React from "react";
 import type {
@@ -13,10 +15,6 @@ import type {
   SingleValue,
 } from "react-select";
 import ReactSelect from "react-select";
-
-import { useLocale } from "@calcom/lib/hooks/useLocale";
-import cx from "@calcom/ui/classNames";
-
 import { Label } from "../inputs/Label";
 import { inputStyles } from "../inputs/TextField";
 import { getReactSelectProps } from "./selectTheme";
@@ -25,7 +23,7 @@ import type { SelectProps } from "./types";
 export const Select = <
   Option,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   components,
   variant = "default",
@@ -87,11 +85,11 @@ export const Select = <
               ? variant === "checkbox"
                 ? "px-3 h-fit"
                 : state.hasValue
-                ? "p-1 h-fit"
-                : "px-3 h-fit"
+                  ? "p-1 h-fit"
+                  : "px-3 h-fit"
               : size === "sm"
-              ? "h-7 px-2 py-0.5"
-              : "h-8 px-3 py-1",
+                ? "h-7 px-2 py-0.5"
+                : "h-8 px-3 py-1",
             state.isDisabled && "bg-subtle !cursor-not-allowed !pointer-events-auto hover:border-subtle",
             "rounded-[10px]",
             "[&:focus-within]:border-emphasis [&:focus-within]:shadow-outline-gray-focused focus-within:ring-0 flex! **:[input]:leading-none text-sm",
@@ -112,10 +110,7 @@ export const Select = <
           ),
         groupHeading: () => "leading-none text-xs text-muted p-2 font-medium ml-1",
         menuList: () =>
-          cx(
-            "scroll-bar scrollbar-track-w-20 rounded-md flex flex-col space-y-1",
-            innerClassNames?.menuList
-          ),
+          cx("scroll-bar scrollbar-track-w-20 rounded-md flex flex-col space-y-1", innerClassNames?.menuList),
         indicatorsContainer: (state: IndicatorsContainerProps<Option, IsMulti, Group>) =>
           cx(
             "flex items-start! justify-center mt-1 h-full",
@@ -124,8 +119,8 @@ export const Select = <
                 ? "[&>*:last-child]:rotate-180 [&>*:last-child]:transition-transform [&>*:last-child]:w-4 [&>*:last-child]:h-4"
                 : "rotate-180 transition-transform w-4 h-4"
               : hasMultiLastIcons
-              ? "[&>*:last-child]:transition-transform [&>*:last-child]:w-4 [&>*:last-child]:h-4 text-default"
-              : "transition-transform w-4 h-4 text-default"
+                ? "[&>*:last-child]:transition-transform [&>*:last-child]:w-4 [&>*:last-child]:h-4 text-default"
+                : "transition-transform w-4 h-4 text-default"
           ),
         multiValueRemove: () => "text-default py-auto",
 
@@ -139,7 +134,7 @@ export const Select = <
 export const SelectField = function SelectField<
   Option,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >(
   props: {
     required?: boolean;
@@ -177,7 +172,7 @@ export const SelectField = function SelectField<
 export function SelectWithValidation<
   Option extends { label: string; value: string },
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   required = false,
   onChange,

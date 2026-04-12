@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import type { GroupBase, Props, InputProps, SingleValue, MultiValue, CSSObjectWithLabel, OptionProps, ActionMeta } from "react-select";
-import ReactSelect, { components } from "react-select";
-
 import { useGetTheme } from "@calcom/lib/hooks/useTheme";
 import classNames from "@calcom/ui/classNames";
+import React, { useCallback, useEffect, useState } from "react";
+import type { ActionMeta, CSSObjectWithLabel, GroupBase, InputProps, MultiValue, OptionProps, Props, SingleValue } from "react-select";
+import ReactSelect, { components } from "react-select";
 
 export type SelectProps<
   Option,
@@ -166,8 +165,7 @@ export function SelectWithValidation<
           if (onChange) {
             onChange(value, actionMeta);
           }
-      />
-      {required && (
+      />required && (
         <input
           tabIndex={-1}
           autoComplete="off"
@@ -183,7 +181,7 @@ export function SelectWithValidation<
           // onFocus={() => selectRef.current?.focus()}
           required={required}
         />
-      )}
+      )
     </div>
   );
 }

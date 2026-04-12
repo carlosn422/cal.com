@@ -1,4 +1,4 @@
-
+import process from "node:process";
 import type { NextApiRequest, NextApiResponse } from "next";
 import provisionUser from "../../../lib/provisioning.service";
 
@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const normalizedEmail = normalizeEmail(email);
   // Basic email validation
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
-      return res.status(400).json({ success: false, message: "Invalid email format" });
+    return res.status(400).json({ success: false, message: "Invalid email format" });
   }
 
   try {

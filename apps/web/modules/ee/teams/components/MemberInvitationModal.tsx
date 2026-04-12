@@ -1,10 +1,3 @@
-import { useSession } from "next-auth/react";
-import posthog from "posthog-js";
-import type { FormEvent } from "react";
-import { useCallback, useMemo, useRef, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-
-import TeamInviteFromOrg from "~/ee/organizations/components/TeamInviteFromOrg";
 import { checkAdminOrOwner } from "@calcom/features/auth/lib/checkAdminOrOwner";
 import { Dialog } from "@calcom/features/components/controlled-dialog";
 import type { PendingMember } from "@calcom/features/ee/teams/lib/types";
@@ -12,24 +5,23 @@ import ServerTrans from "@calcom/lib/components/ServerTrans";
 import { IS_TEAM_BILLING_ENABLED_CLIENT, MAX_NB_INVITES } from "@calcom/lib/constants";
 import { useCompatSearchParams } from "@calcom/lib/hooks/useCompatSearchParams";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
-import { MembershipRole } from "@calcom/prisma/enums";
-import { CreationSource } from "@calcom/prisma/enums";
+import { CreationSource, MembershipRole } from "@calcom/prisma/enums";
 import type { RouterOutputs } from "@calcom/trpc/react";
 import { trpc } from "@calcom/trpc/react";
 import { isEmail } from "@calcom/trpc/server/routers/viewer/teams/util";
 import classNames from "@calcom/ui/classNames";
 import { Button } from "@calcom/ui/components/button";
 import { DialogContent, DialogFooter } from "@calcom/ui/components/dialog";
-import { TextAreaField } from "@calcom/ui/components/form";
-import { Form } from "@calcom/ui/components/form";
-import { Label } from "@calcom/ui/components/form";
-import { TextField } from "@calcom/ui/components/form";
-import { Select } from "@calcom/ui/components/form";
-import { ToggleGroup } from "@calcom/ui/components/form";
-import { BuildingIcon, UserIcon, UsersIcon } from "@coss/ui/icons";
+import { Form, Label, Select, TextAreaField, TextField, ToggleGroup } from "@calcom/ui/components/form";
 import { showToast } from "@calcom/ui/components/toast";
 import { revalidateTeamsList } from "@calcom/web/app/(use-page-wrapper)/(main-nav)/teams/actions";
-
+import { BuildingIcon, UserIcon, UsersIcon } from "@coss/ui/icons";
+import { useSession } from "next-auth/react";
+import posthog from "posthog-js";
+import type { FormEvent } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import TeamInviteFromOrg from "~/ee/organizations/components/TeamInviteFromOrg";
 import { GoogleWorkspaceInviteButton } from "./GoogleWorkspaceInviteButton";
 
 type MemberInvitationModalProps = {
@@ -194,7 +186,7 @@ export default function MemberInvitationModal(props: MemberInvitationModalProps)
 
   const importRef = useRef<HTMLInputElement | null>(null);
 
-const handleCopyInviteLink = useCallback(async () => {
+  const handleCopyInviteLink = useCallback(async () => {
     if (isCopying || createInviteMutation.isPending) return;
 
     setIsCopying(true);
@@ -206,10 +198,12 @@ const handleCopyInviteLink = useCallback(async () => {
           //eslint-disable-next-line no-async-promise-executor
           "text/plain": new Promise((resolve, reject) => {
             // Instead of doing async work and then writing to clipboard, do async work in clipboard API itself
-            createInviteMutation.mutateAsync({
+            createInviteMutation
+              .mutateAsync({
                 teamId: props.teamId,
                 token: props.token,
-              }).then(({ inviteLink }) => {
+              })
+              .then(({ inviteLink }) => {
                 resolve(new Blob([inviteLink], { type: "text/plain" }));
               })
               .catch((err) => {
@@ -220,7 +214,7 @@ const handleCopyInviteLink = useCallback(async () => {
         await navigator.clipboard.write([inviteLinkClipboardItem]);
         showToast(t("invite_link_copied"), "success");
       } else {
-        // Fallback for browsers that don't support ClipboardItem e.g. Firefox 
+        // Fallback for browsers that don't support ClipboardItem e.g. Firefox
         const { inviteLink } = await createInviteMutation.mutateAsync({
           teamId: props.teamId,
           token: props.token,
@@ -234,7 +228,7 @@ const handleCopyInviteLink = useCallback(async () => {
     } finally {
       setIsCopying(false);
     }
-    }, [isCopying, createInviteMutation, props.teamId, props.token, t]);
+  }, [isCopying, createInviteMutation, props.teamId, props.token, t]);
 
   return (
     <Dialog

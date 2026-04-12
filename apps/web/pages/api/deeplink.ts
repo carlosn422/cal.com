@@ -1,17 +1,16 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import admin from "firebase-admin";
-import { encode } from "next-auth/jwt";
-import { serialize } from "cookie";
-import provisionUser from "../../lib/provisioning.service";
+import process from "node:process";
 import prisma from "@calcom/prisma";
+import { serialize } from "cookie";
+import admin from "firebase-admin";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { encode } from "next-auth/jwt";
+import provisionUser from "../../lib/provisioning.service";
 
 if (!process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
   throw new Error("Firebase credentials not set");
 }
 
-const serviceAccount = JSON.parse(
-  process.env.FIREBASE_SERVICE_ACCOUNT_JSON || "{}"
-);
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON || "{}");
 
 if (!admin.apps.length) {
   admin.initializeApp({

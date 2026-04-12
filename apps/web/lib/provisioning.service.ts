@@ -1,9 +1,8 @@
-
-import { randomBytes } from "crypto";
+import { PrismaApiKeyRepository } from "@calcom/features/ee/api-keys/repositories/PrismaApiKeyRepository";
 import { hashPassword } from "@calcom/lib/auth/hashPassword";
 import { slugify } from "@calcom/lib/slugify";
-import { PrismaApiKeyRepository } from "@calcom/features/ee/api-keys/repositories/PrismaApiKeyRepository";
 import prisma from "@calcom/prisma";
+import { randomBytes } from "crypto";
 
 async function provisionUser(email: string) {
   const normalizedEmail = email.trim().toLowerCase();
@@ -17,7 +16,7 @@ async function provisionUser(email: string) {
   } else {
     const randomPassword = randomBytes(16).toString("hex");
     const hashedPassword = await hashPassword(randomPassword);
-    const username = slugify(normalizedEmail.split('@')[0] || `user-${Date.now()}`);
+    const username = slugify(normalizedEmail.split("@")[0] || `user-${Date.now()}`);
 
     user = await prisma.user.create({
       data: {
@@ -77,4 +76,3 @@ async function provisionUser(email: string) {
 }
 
 export default provisionUser;
-

@@ -5,8 +5,20 @@ import { addTimezonesToDropdown, filterBySearchText, handleOptionLabel } from "@
 import classNames from "@calcom/ui/classNames";
 import { getReactSelectProps, inputStyles } from "@calcom/ui/components/form";
 import { useCallback, useMemo, useState } from "react";
+import type {
+  ControlProps,
+  CSSObjectWithLabel,
+  IndicatorsContainerProps,
+  InputProps,
+  MenuListProps,
+  MenuProps,
+  MultiValueProps,
+  OptionProps,
+  PlaceholderProps,
+  SingleValueProps,
+  ValueContainerProps,
+} from "react-select";
 import type { ITimezone, ITimezoneOption, Props as SelectProps } from "react-timezone-select";
-import type { CSSObjectWithLabel, ControlProps, IndicatorsContainerProps, InputProps, MenuListProps, MenuProps, MultiValueProps, OptionProps, PlaceholderProps, SingleValueProps, ValueContainerProps } from "react-select";
 import BaseSelect from "react-timezone-select";
 
 export type TimezoneSelectComponentProps = SelectProps & {
@@ -133,7 +145,8 @@ export function TimezoneSelectComponent({
             state.isSelected && "bg-emphasis text-default",
             timezoneClassNames?.option && timezoneClassNames.option(state)
           ),
-        placeholder: (state: PlaceholderProps<ITimezoneOption>) => classNames("text-muted", state.isFocused && "hidden"),
+        placeholder: (state: PlaceholderProps<ITimezoneOption>) =>
+          classNames("text-muted", state.isFocused && "hidden"),
         dropdownIndicator: () => "text-default",
         control: (state: ControlProps<ITimezoneOption>) =>
           classNames(

@@ -21,9 +21,9 @@ import SingleForm from "@components/apps/routing-forms/SingleForm";
 import { ChevronDownIcon, MenuIcon } from "@coss/ui/icons";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { inferSSRProps } from "@lib/types/inferSSRProps";
-import type { CSSObjectWithLabel, OptionProps, SingleValue } from "react-select";
 import type { UseFormReturn } from "react-hook-form";
 import { Controller, useFieldArray, useWatch } from "react-hook-form";
+import type { CSSObjectWithLabel, OptionProps, SingleValue } from "react-select";
 import { Toaster } from "sonner";
 import { v4 as uuidv4 } from "uuid";
 
@@ -172,7 +172,9 @@ function Field({
                             "h-8 w-full justify-between text-left text-sm",
                             !!router && "bg-subtle cursor-not-allowed"
                           )}>
-                          <span className="text-default">{defaultValue?.label || t("select_field_type")}</span>
+                          <span className="text-default">
+                            {defaultValue?.label || t("select_field_type")}
+                          </span>
                           <ChevronDownIcon className="text-default h-4 w-4" />
                         </Button>
                       </Tooltip>

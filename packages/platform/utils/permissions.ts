@@ -1,3 +1,4 @@
+import type { PLATFORM_PERMISSION } from "@calcom/platform-constants";
 import {
   APPS_READ,
   APPS_WRITE,
@@ -11,7 +12,6 @@ import {
   SCHEDULE_READ,
   SCHEDULE_WRITE,
 } from "@calcom/platform-constants";
-import type { PLATFORM_PERMISSION } from "@calcom/platform-constants";
 
 export const hasPermission = (userPermissions: number, permission: PLATFORM_PERMISSION): boolean => {
   // use bitwise AND to check if user has the permission

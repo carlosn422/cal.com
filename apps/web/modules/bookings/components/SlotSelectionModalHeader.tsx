@@ -5,23 +5,23 @@ import type { Timezone } from "@calcom/features/bookings/Booker/types";
 import { useTimePreferences } from "@calcom/features/bookings/lib";
 import type { BookerEvent } from "@calcom/features/bookings/types";
 import { EventDetailBlocks } from "@calcom/features/bookings/types";
-import type { TimezoneSelectProps as WebTimezoneSelectProps } from "@calcom/web/modules/timezone/components/TimezoneSelect";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
 import { CURRENT_TIMEZONE } from "@calcom/lib/timezoneConstants";
 import { Button } from "@calcom/ui/components/button";
+import type { TimezoneSelectProps as WebTimezoneSelectProps } from "@calcom/web/modules/timezone/components/TimezoneSelect";
 import { GlobeIcon } from "@coss/ui/icons";
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import { useMemo } from "react";
-import { shallow } from "zustand/shallow";
-import { EventDetails } from "./event-meta/Details";
 import type {
+  ContainerProps,
   ControlProps,
+  IndicatorsContainerProps,
   MenuProps,
   SingleValueProps,
-  IndicatorsContainerProps,
-  ContainerProps,
 } from "react-select";
+import { shallow } from "zustand/shallow";
+import { EventDetails } from "./event-meta/Details";
 
 const LoadingState = (): JSX.Element => {
   const { t } = useLocale();

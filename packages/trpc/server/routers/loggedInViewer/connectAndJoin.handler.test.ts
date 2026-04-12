@@ -1,10 +1,7 @@
 import { prisma } from "@calcom/prisma/__mocks__/prisma";
-
-import { describe, it, expect, vi, beforeEach } from "vitest";
-
 import { BookingStatus } from "@calcom/prisma/enums";
 import type { TrpcSessionUser } from "@calcom/trpc/server/types";
-
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Handler } from "./connectAndJoin.handler";
 
 vi.mock("@calcom/prisma", () => ({

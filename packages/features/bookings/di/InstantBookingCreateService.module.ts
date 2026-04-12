@@ -1,9 +1,9 @@
-import { InstantBookingCreateService } from "@calcom/features/bookings/lib/service/InstantBookingCreateService";
 import { moduleLoader as bookingEventHandlerModuleLoader } from "@calcom/features/bookings/di/BookingEventHandlerService.module";
-import { createModule, bindModuleToClassOnToken } from "@calcom/features/di/di";
+import { InstantBookingCreateService } from "@calcom/features/bookings/lib/service/InstantBookingCreateService";
+import { bindModuleToClassOnToken, createModule } from "@calcom/features/di/di";
 import { moduleLoader as featuresRepositoryModuleLoader } from "@calcom/features/di/modules/FeaturesRepository";
-import { DI_TOKENS } from "@calcom/features/di/tokens";
 import { moduleLoader as prismaModuleLoader } from "@calcom/features/di/modules/Prisma";
+import { DI_TOKENS } from "@calcom/features/di/tokens";
 
 export const instantBookingCreateServiceModule = createModule();
 const token = DI_TOKENS.INSTANT_BOOKING_CREATE_SERVICE;

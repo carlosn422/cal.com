@@ -1,11 +1,7 @@
 import { organizationScenarios } from "@calcom/features/ee/organizations/__mocks__/organizationMock";
-
-import { describe, it, expect, beforeEach, vi } from "vitest";
-
-import { MembershipRole } from "@calcom/prisma/enums";
-import { CreationSource } from "@calcom/prisma/enums";
+import { CreationSource, MembershipRole } from "@calcom/prisma/enums";
 import { inviteMembersWithNoInviterPermissionCheck } from "@calcom/trpc/server/routers/viewer/teams/inviteMember/inviteMember.handler";
-
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { moveUserToMatchingOrg } from "./verify-email";
 
 // TODO: This test passes but coverage is very low.
@@ -56,23 +52,23 @@ describe("moveUserToMatchingOrg", () => {
       ],
     };
 
-    it("should always invite as MEMBER role, not an elevated role", async() => {
+    it("should always invite as MEMBER role, not an elevated role", async () => {
       const org = {
         id: "org123",
         slug: "test-org",
-        requestedSlug: null
-      }
+        requestedSlug: null,
+      };
 
       organizationScenarios.organizationRepository.findUniqueNonPlatformOrgsByMatchingAutoAcceptEmail.fakeReturnOrganization(
         org,
         { email }
-      )
+      );
 
-      await moveUserToMatchingOrg({ email })
+      await moveUserToMatchingOrg({ email });
 
-      const call = vi.mocked(inviteMembersWithNoInviterPermissionCheck).mock.calls[0][0]
-      expect(call.invitations[0].role).toBe(MembershipRole.MEMBER)
-    })
+      const call = vi.mocked(inviteMembersWithNoInviterPermissionCheck).mock.calls[0][0];
+      expect(call.invitations[0].role).toBe(MembershipRole.MEMBER);
+    });
 
     it("should pass inviterName as null", async () => {
       const org = {
@@ -84,9 +80,9 @@ describe("moveUserToMatchingOrg", () => {
         org,
         { email }
       );
- 
+
       await moveUserToMatchingOrg({ email });
- 
+
       const call = vi.mocked(inviteMembersWithNoInviterPermissionCheck).mock.calls[0][0];
       expect(call.inviterName).toBeNull();
     });
@@ -101,9 +97,9 @@ describe("moveUserToMatchingOrg", () => {
         org,
         { email }
       );
- 
+
       await moveUserToMatchingOrg({ email });
- 
+
       const call = vi.mocked(inviteMembersWithNoInviterPermissionCheck).mock.calls[0][0];
       expect(call.creationSource).toBe(CreationSource.WEBAPP);
     });
@@ -118,9 +114,9 @@ describe("moveUserToMatchingOrg", () => {
         org,
         { email }
       );
- 
+
       await moveUserToMatchingOrg({ email });
- 
+
       const call = vi.mocked(inviteMembersWithNoInviterPermissionCheck).mock.calls[0][0];
       expect(call.invitations).toHaveLength(1);
     });
@@ -179,11 +175,11 @@ describe("moveUserToMatchingOrg", () => {
         org,
         { email }
       );
- 
+
       const error = new Error("Invite failed");
       vi.mocked(inviteMembersWithNoInviterPermissionCheck).mockRejectedValue(error);
- 
+
       await expect(moveUserToMatchingOrg({ email })).rejects.toThrow("Invite failed");
     });
-  })
+  });
 });

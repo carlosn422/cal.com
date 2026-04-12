@@ -1,16 +1,16 @@
 import {
+  APPS_READ,
+  APPS_WRITE,
   BOOKING_READ,
   BOOKING_WRITE,
   EVENT_TYPE_READ,
   EVENT_TYPE_WRITE,
   PERMISSIONS,
-  SCHEDULE_READ,
-  SCHEDULE_WRITE,
-  APPS_READ,
-  APPS_WRITE,
+  type PLATFORM_PERMISSION,
   PROFILE_READ,
   PROFILE_WRITE,
-  type PLATFORM_PERMISSION,
+  SCHEDULE_READ,
+  SCHEDULE_WRITE,
 } from "@calcom/platform-constants";
 
 export const hasPermission = (userPermissions: number, permission: PLATFORM_PERMISSION): boolean => {

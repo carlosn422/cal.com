@@ -1,5 +1,5 @@
-import { prisma } from "./index";
 import { Prisma } from "./generated/prisma/client";
+import { prisma } from "./index";
 
 export async function isPrismaAvailableCheck(): Promise<boolean> {
   try {

@@ -1,7 +1,5 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-
 import {
   OptionComponent,
   SingleValueComponent,
@@ -11,9 +9,9 @@ import { useLocale } from "@calcom/lib/hooks/useLocale";
 import classNames from "@calcom/ui/classNames";
 import { Badge } from "@calcom/ui/components/badge";
 import { Select } from "@calcom/ui/components/form";
-
-import { getPlaceholderContent } from "../lib/getPlaceholderContent";
+import { useEffect, useMemo, useState } from "react";
 import type { CSSObjectWithLabel, SingleValue } from "react-select";
+import { getPlaceholderContent } from "../lib/getPlaceholderContent";
 
 export type DestinationCalendarProps = {
   connectedCalendars: ConnectedDestinationCalendars["connectedCalendars"];
@@ -108,9 +106,9 @@ export const DestinationCalendarSelector = ({
         options={options}
         styles={{
           placeholder: (styles: CSSObjectWithLabel) =>
-            Object.assign({}, styles, getPlaceholderContent(hidePlaceholder, `\'${t("create_events_on")}:\'`)),
+            Object.assign({}, styles, getPlaceholderContent(hidePlaceholder, `'${t("create_events_on")}:'`)),
           singleValue: (styles: CSSObjectWithLabel) =>
-            Object.assign({}, styles, getPlaceholderContent(hidePlaceholder, `\'${t("create_events_on")}:\'`)),
+            Object.assign({}, styles, getPlaceholderContent(hidePlaceholder, `'${t("create_events_on")}:'`)),
           control: (defaultStyles: CSSObjectWithLabel) =>
             Object.assign({}, defaultStyles, {
               "@media only screen and (min-width: 640px)": Object.assign(
@@ -124,12 +122,14 @@ export const DestinationCalendarSelector = ({
         className={classNames(
           "my-2 block w-full min-w-0 flex-1 rounded-none rounded-r-sm border-default text-sm"
         )}
-        onChange={(newValue: SingleValue<{
-          label: string;
-          subtitle: string;
-          value: string;
-          delegationCredentialId: string | undefined;
-        }>) => {
+        onChange={(
+          newValue: SingleValue<{
+            label: string;
+            subtitle: string;
+            value: string;
+            delegationCredentialId: string | undefined;
+          }>
+        ) => {
           setSelectedOption(newValue);
           if (!newValue) {
             return;
