@@ -18,12 +18,14 @@ RUN yarn install
 RUN yarn workspace @calcom/api-v2 run generate-schemas
 RUN yarn workspace @calcom/api-v2 run build:docker
 
+RUN echo "=== dist directories ===" && find /calcom -type d -name dist | sort
+RUN echo "=== main.js files ===" && find /calcom -type f -name main.js | sort
 
 FROM node:20-alpine AS runner
 
 WORKDIR /calcom/apps/api/v2
-COPY --from=build /calcom/apps/api/v2/dist ./dist
+COPY --from=build /calcom/dist/apps/api-v2 ./dist
 
 EXPOSE 80
 
-CMD [ "node", "dist/apps/api/v2/src/main.js" ]
+CMD [ "node", "dist/main.js" ]

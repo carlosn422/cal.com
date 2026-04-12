@@ -5,4 +5,4 @@ set -x
 # NOTE: if these values are the same, this will be skipped.
 scripts/replace-placeholder.sh "$BUILT_NEXT_PUBLIC_WEBAPP_URL" "$NEXT_PUBLIC_WEBAPP_URL"
 
-yarn start
+exec node server.js
